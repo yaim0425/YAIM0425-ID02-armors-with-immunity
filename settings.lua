@@ -29,7 +29,7 @@ local settings = {
     }
 }
 
--- Krastorio
+-- Krastorio 2
 if mods["Krastorio2"] then
     table.insert(settings.allowed_values, "kr-power-armor-mk3")
     table.insert(settings.allowed_values, "kr-power-armor-mk4")
