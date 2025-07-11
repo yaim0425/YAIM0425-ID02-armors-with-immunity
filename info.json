@@ -1,0 +1,12 @@
+{
+  "name": "zzzYAIM0425-0200-armors-with-immunity",
+  "version": "0.0.1",
+  "title": "zzzYAIM0425 0200 Armors with immunity",
+  "author": "YAIM904",
+  "factorio_version": "2.0",
+  "description": "Create one armor that makes you immune to each damage and another one immune to everything. [[I accept suggestions]]",
+  "dependencies": [
+    "base",
+    "zzzYAIM0425-0000-lib"
+  ]
+}
