@@ -4,123 +4,197 @@
 
 --- Contenedor de funciones y datos usados
 --- unicamente en este archivo
-local ThisMOD = {}
-
----------------------------------------------------------------------------------------------------
+local This_MOD = {}
 
 ---------------------------------------------------------------------------------------------------
 
 --- Iniciar el modulo
-function ThisMOD.Start()
+function This_MOD.start()
     --- Valores de la referencia
-    ThisMOD.setSetting()
+    This_MOD.setting_mod()
 
-    --- Crear las recetas
-    ThisMOD.Create_OneResistance_Recipes()
-    ThisMOD.Create_AllResistance_Recipe()
+    -- --- Crear las recetas
+    -- This_MOD.create_recipes_one_resistance()
+    -- This_MOD.create_recipes_all_resistance()
 
-    --- Crear los objetos
-    ThisMOD.Create_OneResistance_Armors()
-    ThisMOD.Create_AllResistance_Armor()
+    -- --- Crear los objetos
+    -- This_MOD.create_armors_one_resistance()
+    -- This_MOD.create_armors_all_resistance()
 end
 
 --- Valores de la referencia
-function ThisMOD.setSetting()
-    --- Otros valores
-    ThisMOD.Prefix    = "zzzYAIM0425-0200-"
-    ThisMOD.name      = "armors-with-immunity"
+function This_MOD.setting_mod()
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+    ---> Otros valores
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-    --- Armadura a duplicar
-    local Default     = "light-armor"
-    local Setting     = GPrefix.Setting[ThisMOD.Prefix]["armor-base"]
-    local ItemBase    = GPrefix.Items[Setting] or GPrefix.Items[Default]
+    This_MOD.index = "0200"
+    This_MOD.prefix = GPrefix.name .. "-" .. This_MOD.index .. "-"
+    This_MOD.name = "armors-with-immunity"
 
-    --- Subgroup para este MOD
-    local oldSubgroup = ItemBase.subgroup
-    local newSubgroup = ThisMOD.Prefix .. ThisMOD.name
-    GPrefix.duplicate_subgroup(oldSubgroup, newSubgroup)
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-    --- Objeto base
-    ThisMOD.item                       = GPrefix.Items[ItemBase.name]
-    ThisMOD.item                       = util.copy(ThisMOD.item)
-    ThisMOD.item.name                  = ThisMOD.Prefix .. ThisMOD.item.name .. "-"
-    ThisMOD.item.localised_description = { "" }
-    ThisMOD.item.resistances           = {}
-    ThisMOD.item.subgroup              = newSubgroup
-    table.insert(ThisMOD.item.localised_name, " - ")
 
-    --- Receta base
-    ThisMOD.recipe                       = GPrefix.Recipes[ItemBase.name][1]
-    ThisMOD.recipe                       = util.copy(ThisMOD.recipe)
-    ThisMOD.recipe_name                  = ThisMOD.recipe.name
-    ThisMOD.recipe.name                  = ThisMOD.Prefix .. ThisMOD.recipe.name .. "-"
-    ThisMOD.recipe.localised_description = { "" }
-    ThisMOD.recipe.results               = { {} }
-    ThisMOD.recipe.results[1].type       = "item"
-    ThisMOD.recipe.results[1].name       = ThisMOD.item.name
-    ThisMOD.recipe.results[1].amount     = 1
-    ThisMOD.recipe.subgroup              = newSubgroup
-    ThisMOD.recipe.icons                 = util.copy(ThisMOD.item.icons)
-    table.insert(ThisMOD.recipe.localised_name, " - ")
 
-    --- Calcular el numero de digitos a usar
-    ThisMOD.digit = GPrefix.get_length(data.raw["damage-type"]) + 1
-    ThisMOD.digit = GPrefix.digit_count(ThisMOD.digit > 0 and ThisMOD.digit or 1) + 1
 
-    --- Indicador de mod
-    ThisMOD.Indocator = {
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+    ---> Renombrar las variables
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+    This_MOD.damages = data.raw["damage-type"]
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+
+
+
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+    ---> Armadura a duplicar
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+    local Default = "light-armor"
+    local Setting = GPrefix.Setting[This_MOD.prefix]["armor-base"]
+    local Item_base = GPrefix.Items[Setting] or GPrefix.Items[Default]
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+
+
+
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+    ---> Subgroup para este MOD
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+    local Old_subgroup = Item_base.subgroup
+    local New_subgroup = This_MOD.prefix .. This_MOD.name
+    GPrefix.duplicate_subgroup(Old_subgroup, New_subgroup)
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+
+
+
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+    ---> Objeto base
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+    This_MOD.item = GPrefix.Items[Item_base.name]
+    This_MOD.item = util.copy(This_MOD.item)
+    This_MOD.item.name = This_MOD.prefix .. This_MOD.item.name .. "-"
+    This_MOD.item.localised_description = { "" }
+    This_MOD.item.resistances = {}
+    This_MOD.item.subgroup = New_subgroup
+    table.insert(This_MOD.item.localised_name, " - ")
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+
+
+
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+    ---> Receta base
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+    This_MOD.recipe = GPrefix.Recipes[Item_base.name][1]
+    This_MOD.recipe = util.copy(This_MOD.recipe)
+    This_MOD.recipe_name = This_MOD.recipe.name
+    This_MOD.recipe.name = This_MOD.prefix .. This_MOD.recipe.name .. "-"
+    This_MOD.recipe.localised_description = { "" }
+    This_MOD.recipe.results = { {} }
+    This_MOD.recipe.results[1].type = "item"
+    This_MOD.recipe.results[1].name = This_MOD.item.name
+    This_MOD.recipe.results[1].amount = 1
+    This_MOD.recipe.subgroup = New_subgroup
+    This_MOD.recipe.icons = util.copy(This_MOD.item.icons)
+    table.insert(This_MOD.recipe.localised_name, " - ")
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+
+
+
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+    ---> Calcular el numero de digitos a usar
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+    This_MOD.digit = GPrefix.get_length(This_MOD.damages) + 1
+    This_MOD.digit = GPrefix.digit_count(This_MOD.digit > 0 and This_MOD.digit or 1) + 1
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+
+
+
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+    ---> Indicador de mod
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+    This_MOD.Indocator = {
         icon = data.raw["virtual-signal"]["signal-heart"].icon,
         shift = { 14, -14 },
         scale = 0.15
     }
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 end
 
 ---------------------------------------------------------------------------------------------------
 
+
+
+
+
 ---------------------------------------------------------------------------------------------------
 
 --- Crear las recetas para las armaduras con una inmunidad
-function ThisMOD.Create_OneResistance_Recipes()
+function This_MOD.create_recipes_one_resistance()
     local Count = 0
-    for damage, _ in pairs(data.raw["damage-type"]) do
+    for damage, _ in pairs(This_MOD.damages) do
         --- Nueva receta
-        local Recipe           = util.copy(ThisMOD.recipe)
+        local Recipe           = util.copy(This_MOD.recipe)
         Count                  = Count + 1
 
         --- Actualizar los valores
         Recipe.results[1].name = Recipe.name .. Count
         Recipe.name            = Recipe.name .. Count
-        Recipe.order           = GPrefix.pad_left(ThisMOD.digit, Count) .. "0"
+        Recipe.order           = GPrefix.pad_left(This_MOD.digit, Count) .. "0"
         table.insert(Recipe.localised_name, { "damage-type-name." .. damage })
-        table.insert(Recipe.icons, ThisMOD.Indocator)
+        table.insert(Recipe.icons, This_MOD.Indocator)
 
         --- Crear el prototipo
         GPrefix.addDataRaw({ Recipe })
 
         --- Agregar a la tecnología
-        GPrefix.addRecipeToTechnology(nil, ThisMOD.recipe_name, Recipe)
+        GPrefix.addRecipeToTechnology(nil, This_MOD.recipe_name, Recipe)
     end
 end
 
 --- Crear la receta para la armadura con todas las inmunidades
-function ThisMOD.Create_AllResistance_Recipe()
+function This_MOD.create_recipes_all_resistance()
     --- Nueva receta
-    local Recipe           = util.copy(ThisMOD.recipe)
-    local Count            = GPrefix.get_length(data.raw["damage-type"]) + 1
+    local Recipe           = util.copy(This_MOD.recipe)
+    local Count            = GPrefix.get_length(This_MOD.damages) + 1
 
     --- Actualizar los valores
     Recipe.results[1].name = Recipe.name .. Count
     Recipe.name            = Recipe.name .. Count
-    Recipe.order           = GPrefix.pad_left(ThisMOD.digit, Count) .. "0"
-    table.insert(Recipe.localised_name, { "armor-description." .. ThisMOD.Prefix .. "all" })
-    table.insert(Recipe.icons, ThisMOD.Indocator)
+    Recipe.order           = GPrefix.pad_left(This_MOD.digit, Count) .. "0"
+    table.insert(Recipe.localised_name, { "armor-description." .. This_MOD.prefix .. "all" })
+    table.insert(Recipe.icons, This_MOD.Indocator)
 
     --- Agregar los ingredientes
     Recipe.ingredients = {}
     for i = 1, Count - 1, 1 do
         table.insert(Recipe.ingredients, {
             type = "item",
-            name = ThisMOD.recipe.name .. i,
+            name = This_MOD.recipe.name .. i,
             amount = 1
         })
     end
@@ -129,27 +203,29 @@ function ThisMOD.Create_AllResistance_Recipe()
     GPrefix.addDataRaw({ Recipe })
 
     --- Agregar a la tecnología
-    GPrefix.addRecipeToTechnology(nil, ThisMOD.recipe_name, Recipe)
+    GPrefix.addRecipeToTechnology(nil, This_MOD.recipe_name, Recipe)
 end
 
+---------------------------------------------------------------------------------------------------
+
 --- Crear las armaduras con una inmunidad
-function ThisMOD.Create_OneResistance_Armors()
+function This_MOD.create_armors_one_resistance()
     local Count = 0
-    for damage, _ in pairs(data.raw["damage-type"]) do
+    for damage, _ in pairs(This_MOD.damages) do
         --- Nueva armadura
-        local Armor = util.copy(ThisMOD.item)
+        local Armor = util.copy(This_MOD.item)
         Count       = Count + 1
 
         --- Actualizar los valores
         Armor.name  = Armor.name .. Count
-        Armor.order = GPrefix.pad_left(ThisMOD.digit, Count) .. "0"
+        Armor.order = GPrefix.pad_left(This_MOD.digit, Count) .. "0"
         table.insert(Armor.localised_name, { "damage-type-name." .. damage })
 
         --- Agregar la inmunidad
         table.insert(Armor.resistances, { type = damage, decrease = 0, percent = 100 })
 
         --- Agregar el indicador
-        table.insert(Armor.icons, ThisMOD.Indocator)
+        table.insert(Armor.icons, This_MOD.Indocator)
 
         --- Crear el prototipo
         GPrefix.addDataRaw({ Armor })
@@ -157,23 +233,23 @@ function ThisMOD.Create_OneResistance_Armors()
 end
 
 --- Crear la armadura con todas las inmunidades
-function ThisMOD.Create_AllResistance_Armor()
+function This_MOD.create_armors_all_resistance()
     --- Nueva armadura
-    local Armor = util.copy(ThisMOD.item)
-    local Count = GPrefix.get_length(data.raw["damage-type"]) + 1
+    local Armor = util.copy(This_MOD.item)
+    local Count = GPrefix.get_length(This_MOD.damages) + 1
 
     --- Actualizar los valores
     Armor.name  = Armor.name .. Count
-    Armor.order = GPrefix.pad_left(ThisMOD.digit, Count) .. "0"
-    table.insert(Armor.localised_name, { "armor-description." .. ThisMOD.Prefix .. "all" })
+    Armor.order = GPrefix.pad_left(This_MOD.digit, Count) .. "0"
+    table.insert(Armor.localised_name, { "armor-description." .. This_MOD.prefix .. "all" })
 
     --- Agregar la inmunidad
-    for damage, _ in pairs(data.raw["damage-type"]) do
+    for damage, _ in pairs(This_MOD.damages) do
         table.insert(Armor.resistances, { type = damage, decrease = 0, percent = 100 })
     end
 
     --- Agregar el indicador
-    table.insert(Armor.icons, ThisMOD.Indocator)
+    table.insert(Armor.icons, This_MOD.Indocator)
 
     --- Crear el prototipo
     GPrefix.addDataRaw({ Armor })
@@ -181,9 +257,13 @@ end
 
 ---------------------------------------------------------------------------------------------------
 
+
+
+
+
 ---------------------------------------------------------------------------------------------------
 
 --- Iniciar el modulo
-ThisMOD.Start()
+This_MOD.start()
 
 ---------------------------------------------------------------------------------------------------
