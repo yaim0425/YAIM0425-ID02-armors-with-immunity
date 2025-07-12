@@ -39,6 +39,18 @@ function This_MOD.setting_mod()
 
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+    ---> Renombrar las variables
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+    This_MOD.damages = data.raw["damage-type"]
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+
+
+
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     ---> Armadura a duplicar
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -111,7 +123,7 @@ function This_MOD.setting_mod()
     ---> Calcular el numero de digitos a usar
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-    This_MOD.digit = GPrefix.get_length(data.raw["damage-type"]) + 1
+    This_MOD.digit = GPrefix.get_length(This_MOD.damages) + 1
     This_MOD.digit = GPrefix.digit_count(This_MOD.digit > 0 and This_MOD.digit or 1) + 1
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -144,7 +156,7 @@ end
 --- Crear las recetas para las armaduras con una inmunidad
 function This_MOD.create_recipes_one_resistance()
     local Count = 0
-    for damage, _ in pairs(data.raw["damage-type"]) do
+    for damage, _ in pairs(This_MOD.damages) do
         --- Nueva receta
         local Recipe           = util.copy(This_MOD.recipe)
         Count                  = Count + 1
@@ -168,7 +180,7 @@ end
 function This_MOD.create_recipes_all_resistance()
     --- Nueva receta
     local Recipe           = util.copy(This_MOD.recipe)
-    local Count            = GPrefix.get_length(data.raw["damage-type"]) + 1
+    local Count            = GPrefix.get_length(This_MOD.damages) + 1
 
     --- Actualizar los valores
     Recipe.results[1].name = Recipe.name .. Count
@@ -194,10 +206,12 @@ function This_MOD.create_recipes_all_resistance()
     GPrefix.addRecipeToTechnology(nil, This_MOD.recipe_name, Recipe)
 end
 
+---------------------------------------------------------------------------------------------------
+
 --- Crear las armaduras con una inmunidad
 function This_MOD.create_armors_one_resistance()
     local Count = 0
-    for damage, _ in pairs(data.raw["damage-type"]) do
+    for damage, _ in pairs(This_MOD.damages) do
         --- Nueva armadura
         local Armor = util.copy(This_MOD.item)
         Count       = Count + 1
@@ -222,7 +236,7 @@ end
 function This_MOD.create_armors_all_resistance()
     --- Nueva armadura
     local Armor = util.copy(This_MOD.item)
-    local Count = GPrefix.get_length(data.raw["damage-type"]) + 1
+    local Count = GPrefix.get_length(This_MOD.damages) + 1
 
     --- Actualizar los valores
     Armor.name  = Armor.name .. Count
@@ -230,7 +244,7 @@ function This_MOD.create_armors_all_resistance()
     table.insert(Armor.localised_name, { "armor-description." .. This_MOD.prefix .. "all" })
 
     --- Agregar la inmunidad
-    for damage, _ in pairs(data.raw["damage-type"]) do
+    for damage, _ in pairs(This_MOD.damages) do
         table.insert(Armor.resistances, { type = damage, decrease = 0, percent = 100 })
     end
 
