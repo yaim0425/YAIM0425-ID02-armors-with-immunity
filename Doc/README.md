@@ -1,4 +1,4 @@
-![](./thumbnail.png)
+![](../thumbnail.png)
 
 # 🛡️ `zzzYAIM0425-0200-armors-with-immunity` [![Bandera de Estados unidos](https://flagcdn.com/20x15/us.png)](../README.md)
 
