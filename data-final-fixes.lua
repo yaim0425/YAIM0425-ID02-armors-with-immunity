@@ -10,34 +10,31 @@ local This_MOD = {}
 
 --- Iniciar el modulo
 function This_MOD.start()
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+    --- Obtener información del nombre de MOD
+    GPrefix.split_name_folder(This_MOD)
+
     --- Valores de la referencia
     This_MOD.setting_mod()
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
     -- --- Crear las recetas
     -- This_MOD.create_recipes_one_resistance()
     -- This_MOD.create_recipes_all_resistance()
 
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
     -- --- Crear los objetos
     -- This_MOD.create_armors_one_resistance()
     -- This_MOD.create_armors_all_resistance()
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 end
 
 --- Valores de la referencia
 function This_MOD.setting_mod()
-    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-    ---> Otros valores
-    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-
-    This_MOD.index = "0200"
-    This_MOD.prefix = GPrefix.name .. "-" .. This_MOD.index .. "-"
-    This_MOD.name = "armors-with-immunity"
-
-    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-
-
-
-
-
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     ---> Renombrar las variables
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -158,21 +155,21 @@ function This_MOD.create_recipes_one_resistance()
     local Count = 0
     for damage, _ in pairs(This_MOD.damages) do
         --- Nueva receta
-        local Recipe           = util.copy(This_MOD.recipe)
-        Count                  = Count + 1
+        Count = Count + 1
+        local Recipe = util.copy(This_MOD.recipe)
 
         --- Actualizar los valores
         Recipe.results[1].name = Recipe.name .. Count
-        Recipe.name            = Recipe.name .. Count
-        Recipe.order           = GPrefix.pad_left(This_MOD.digit, Count) .. "0"
+        Recipe.name = Recipe.name .. Count
+        Recipe.order = GPrefix.pad_left(This_MOD.digit, Count) .. "0"
         table.insert(Recipe.localised_name, { "damage-type-name." .. damage })
         table.insert(Recipe.icons, This_MOD.Indocator)
 
-        --- Crear el prototipo
-        GPrefix.addDataRaw({ Recipe })
+        -- --- Crear el prototipo
+        -- GPrefix.addDataRaw({ Recipe })
 
-        --- Agregar a la tecnología
-        GPrefix.addRecipeToTechnology(nil, This_MOD.recipe_name, Recipe)
+        -- --- Agregar a la tecnología
+        -- GPrefix.addRecipeToTechnology(nil, This_MOD.recipe_name, Recipe)
     end
 end
 
