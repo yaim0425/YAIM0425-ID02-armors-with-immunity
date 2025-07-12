@@ -1,4 +1,6 @@
-# 🛡️ `zzzYAIM0425-0200-armors-with-immunity`
+![](./thumbnail.png)
+
+# 🛡️ `zzzYAIM0425-0200-armors-with-immunity` [![Bandera de España](https://flagcdn.com/20x15/es.png)](./Doc/README.md)
 
 This mod is part of the `zzzYAIM0425` series. It introduces **special armor items that grant full immunity to various damage types** in the game.
 
