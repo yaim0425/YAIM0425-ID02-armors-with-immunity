@@ -1,6 +1,6 @@
 ![](../thumbnail.png)
 
-# 🛡️ `zzzYAIM0425-0200-armors-with-immunity` [![Bandera de Estados unidos](https://flagcdn.com/20x15/us.png)](../README.md)
+# 🛡️ `zzzYAIM0425 0200 armors with immunity` [![Bandera de Estados unidos](https://flagcdn.com/20x15/us.png)](../README.md)
 
 Este mod forma parte de la serie `zzzYAIM0425`. Introduce **piezas de armadura especiales que otorgan inmunidad total a distintos tipos de daño** en el juego.
 
@@ -29,3 +29,14 @@ Este mod forma parte de la serie `zzzYAIM0425`. Introduce **piezas de armadura e
 
 - Funciona con todos los tipos de daño estándar del juego.
 - Fácil de extender si otros mods añaden tipos de daño personalizados.
+
+![](./Screenshot%20(1).png)
+![](./Screenshot%20(2).png)
+![](./Screenshot%20(3).png)
+![](./Screenshot%20(4).png)
+![](./Screenshot%20(5).png)
+![](./Screenshot%20(6).png)
+![](./Screenshot%20(7).png)
+![](./Screenshot%20(8).png)
+![](./Screenshot%20(9).png)
+![](./Screenshot%20(10).png)
