@@ -165,11 +165,11 @@ function This_MOD.create_recipes_one_resistance()
         table.insert(Recipe.localised_name, { "damage-type-name." .. damage })
         table.insert(Recipe.icons, This_MOD.Indocator)
 
-        -- --- Crear el prototipo
-        -- GPrefix.addDataRaw({ Recipe })
+        --- Crear el prototipo
+        GPrefix.extend(Recipe)
 
-        -- --- Agregar a la tecnología
-        -- GPrefix.addRecipeToTechnology(nil, This_MOD.recipe_name, Recipe)
+        --- Agregar a la tecnología
+        GPrefix.add_recipe_to_tech_with_recipe(This_MOD.recipe_name, Recipe)
     end
 end
 
