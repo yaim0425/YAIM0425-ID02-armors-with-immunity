@@ -1,42 +1,49 @@
 ![](../thumbnail.png)
 
-# 🛡️ `zzzYAIM0425 0200 armors with immunity` [![Bandera de Estados unidos](https://flagcdn.com/20x15/us.png)](../README.md)
+# 🛡️ `zzzYAIM0425 0200 armors with immunity` [![English Flag](https://flagcdn.com/20x15/gb.png)](../README.md)
 
-Este mod forma parte de la serie `zzzYAIM0425`. Introduce **piezas de armadura especiales que otorgan inmunidad total a distintos tipos de daño** en el juego.
+Este repositorio contiene el MOD `zzzYAIM0425-0200-armors-with-immunity`, que introduce **armaduras especiales** que otorgan **inmunidad total a tipos de daño específicos o a todos los tipos de daño** en Factorio.
 
-## ✅ Características
+> 🧩 Este MOD forma parte de la [serie `zzzYAIM0425`](https://github.com/yaim0425), diseñada para ofrecer mejoras y utilidades modulares que refinan la experiencia de juego.
 
-- ⚔️ **Una armadura por cada tipo de daño**, que otorga inmunidad total a:
-  - Fuego
-  - Ácido
-  - Veneno
-  - Explosiones
-  - Daño físico
-  - Láser
-  - Eléctrico
-  - Y más (basado en todos los tipos de daño registrados).
-- 🛡️ **Una armadura definitiva** que otorga **inmunidad total a todos los tipos de daño**.
-- Diseñado para una **jugabilidad modular y equilibrada**.
-- Totalmente compatible con otros mods utilitarios de la serie YAIM.
+## 📦 Propósito
 
-## 🔧 Usos
+El objetivo principal es proporcionar **protección específica contra tipos de daño** y opciones de **inmunidad total**, adaptadas a distintos escenarios de juego como exploración, pruebas o desafíos de combate.
 
-- Equipa a tus personajes con armaduras especializadas para **misiones con peligros específicos**.
-- Explora o prueba contenido del juego sin riesgos.
-- Crea escenarios de desafío con **enemigos centrados en tipos de daño concretos**.
+### Beneficios
 
-## 📦 Integración
+- Inmunidad completa contra tipos de daño concretos  
+- Una armadura con inmunidad total a todos los daños  
+- Facilita entornos creativos y de pruebas  
+- Mejora el diseño de misiones y escenarios personalizados  
 
-- Funciona con todos los tipos de daño estándar del juego.
-- Fácil de extender si otros mods añaden tipos de daño personalizados.
+## 🗃️ Contenido
 
-![](./Screenshot%20(1).png)
-![](./Screenshot%20(2).png)
-![](./Screenshot%20(3).png)
-![](./Screenshot%20(4).png)
-![](./Screenshot%20(5).png)
-![](./Screenshot%20(6).png)
-![](./Screenshot%20(7).png)
-![](./Screenshot%20(8).png)
-![](./Screenshot%20(9).png)
+- **Una armadura por tipo de daño**, con inmunidad a:
+  - Fuego  
+  - Ácido  
+  - Veneno  
+  - Explosión  
+  - Daño físico  
+  - Láser  
+  - Eléctrico  
+  - ...y más (compatible con todos los tipos de daño registrados)
+- **Una armadura definitiva** con **inmunidad completa**  
+- Total compatibilidad con otros MODs de la serie `zzzYAIM0425`  
+- Fácilmente ampliable para soportar tipos de daño personalizados  
+
+## 🧭 Requisitos
+
+- [`zzzYAIM0425 0000 lib`](https://github.com/yaim0425/zzzYAIM0425-0000-lib)  
+  Esta es una **dependencia obligatoria** que proporciona la lógica y utilidades compartidas.
+
+![](./Screenshot%20(1).png)  
+![](./Screenshot%20(2).png)  
+![](./Screenshot%20(3).png)  
+![](./Screenshot%20(4).png)  
+![](./Screenshot%20(5).png)  
+![](./Screenshot%20(6).png)  
+![](./Screenshot%20(7).png)  
+![](./Screenshot%20(8).png)  
+![](./Screenshot%20(9).png)  
 ![](./Screenshot%20(10).png)

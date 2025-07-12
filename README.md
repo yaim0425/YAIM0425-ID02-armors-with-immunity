@@ -2,11 +2,24 @@
 
 # 🛡️ `zzzYAIM0425 0200 armors with immunity` [![Bandera de España](https://flagcdn.com/20x15/es.png)](./Doc/README.md)
 
-This mod is part of the `zzzYAIM0425` series. It introduces **special armor items that grant full immunity to various damage types** in the game.
+This repository contains the MOD `zzzYAIM0425-0200-armors-with-immunity`, which introduces **specialized armors** that provide **complete immunity to specific or all damage types** in Factorio.
 
-## ✅ Features
+> 🧩 This MOD is part of the [`zzzYAIM0425` series](https://github.com/yaim0425), designed to offer modular enhancements and utilities for a more refined gameplay experience.
 
-- ⚔️ **One armor for each damage type**, providing total immunity to:
+## 📦 Purpose
+
+The main goal is to provide **damage-specific protection** and **universal immunity options** to support diverse gameplay scenarios such as exploration, testing, or combat challenges.
+
+### Benefits
+
+- Full immunity to specific damage types  
+- One armor with total immunity to all types  
+- Enables creative and testing environments  
+- Enhances mission and scenario design  
+
+## 🗃️ Contents
+
+- **One armor per damage type**, immune to:
   - Fire
   - Acid
   - Poison
@@ -14,29 +27,23 @@ This mod is part of the `zzzYAIM0425` series. It introduces **special armor item
   - Physical
   - Laser
   - Electric
-  - And more (based on all registered damage types).
-- 🛡️ **One ultimate armor** that grants **complete immunity to all damage types**.
-- Designed for **modular and balanced gameplay**.
-- Fully compatible with other YAIM series utility mods.
+  - ...and more (supports all registered damage types)
+- **One universal armor** granting **total immunity**
+- Full compatibility with other `zzzYAIM0425` MODs  
+- Easily extendable to support custom damage types  
 
-## 🔧 Use Cases
+## 🧭 Requirements
 
-- Equip your characters with specialized gear for **hazard-specific missions**.
-- Test or explore game content without risk.
-- Build challenge scenarios using **damage-focused encounters**.
+- [`zzzYAIM0425 0000 lib`](https://github.com/yaim0425/zzzYAIM0425-0000-lib)  
+  This is a **required dependency** that provides shared logic and utilities.
 
-## 📦 Integration
-
-- Works with all standard damage types in the game.
-- Easily extendable if custom damage types are added by other mods.
-
-![](./Doc/Screenshot%20(1).png)
-![](./Doc/Screenshot%20(2).png)
-![](./Doc/Screenshot%20(3).png)
-![](./Doc/Screenshot%20(4).png)
-![](./Doc/Screenshot%20(5).png)
-![](./Doc/Screenshot%20(6).png)
-![](./Doc/Screenshot%20(7).png)
-![](./Doc/Screenshot%20(8).png)
-![](./Doc/Screenshot%20(9).png)
+![](./Doc/Screenshot%20(1).png)  
+![](./Doc/Screenshot%20(2).png)  
+![](./Doc/Screenshot%20(3).png)  
+![](./Doc/Screenshot%20(4).png)  
+![](./Doc/Screenshot%20(5).png)  
+![](./Doc/Screenshot%20(6).png)  
+![](./Doc/Screenshot%20(7).png)  
+![](./Doc/Screenshot%20(8).png)  
+![](./Doc/Screenshot%20(9).png)  
 ![](./Doc/Screenshot%20(10).png)
