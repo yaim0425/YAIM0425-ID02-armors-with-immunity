@@ -18,8 +18,13 @@ function This_MOD.start()
     --- Valores de la referencia
     This_MOD.setting_mod()
 
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
     --- Tecnología a duplicar
     This_MOD.get_technology()
+
+    --- Crear las tecnologias
+    This_MOD.create_techs()
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -32,11 +37,6 @@ function This_MOD.start()
     --- Crear los objetos
     This_MOD.create_armors_one_resistance()
     This_MOD.create_armors_all_resistance()
-
-    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-
-    --- Crear las tecnologias
-    This_MOD.create_techs()
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 end
