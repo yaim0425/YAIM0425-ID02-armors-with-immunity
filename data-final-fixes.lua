@@ -20,14 +20,6 @@ function This_MOD.start()
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-    --- Tecnología a duplicar
-    This_MOD.get_technology()
-
-    --- Crear las tecnologias
-    This_MOD.create_techs()
-
-    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-
     -- --- Crear las recetas
     This_MOD.create_recipes_one_resistance()
     This_MOD.create_recipes_all_resistance()
@@ -37,6 +29,15 @@ function This_MOD.start()
     --- Crear los objetos
     This_MOD.create_armors_one_resistance()
     This_MOD.create_armors_all_resistance()
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+    --- Tecnología a duplicar
+    This_MOD.get_technology()
+
+    --- Crear las tecnologias
+    This_MOD.create_tech_one_resistance()
+    This_MOD.create_tech_all_resistance()
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 end
@@ -279,30 +280,44 @@ end
 
 ---------------------------------------------------------------------------------------------------
 
---- Crear las tecnologias
-function This_MOD.create_techs()
+--- Crear la tecnología para una inmunidad
+function This_MOD.create_tech_one_resistance()
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
     --- Validación
     if not This_MOD.tech then return end
 
-    --- Cantidad de armaduras creadas
-    local Max = GPrefix.get_length(This_MOD.damages) + 1
-
-    --- Crear las tecnologías
-    for i = 1, Max, 1 do
+    --- Recorrer los daños
+    local Count = 1
+    for damage, _ in pairs(This_MOD.damages) do
         --- Duplicar la tecnología
         local Tech = util.copy(This_MOD.tech)
-        Tech.prerequisites = { Tech.name }
         Tech.effects = { {
             type = "unlock-recipe",
-            recipe = This_MOD.recipe.name .. i
+            recipe = This_MOD.recipe.name .. Count
         } }
-        Tech.name = GPrefix.name .. "-" .. i .. "-" .. Tech.name
+        Tech.prerequisites = { Tech.name }
+        Tech.name = GPrefix.name .. "-" .. Count
+        Tech.name = Tech.name .. "-" .. Tech.name
+        Count = Count + 1
+
+        --- Daño a absorber
+        table.insert(Tech.localised_name, " - ")
+        table.insert(Tech.localised_name, { "damage-type-name." .. damage })
 
         --- Crear la tecnología
         GPrefix.extend(Tech)
     end
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+end
+
+--- Crear la tecnología para todas las inmunidades
+function This_MOD.create_tech_all_resistance()
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+    --- Validación
+    if not This_MOD.tech then return end
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 end
