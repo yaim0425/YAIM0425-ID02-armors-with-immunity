@@ -299,8 +299,7 @@ function This_MOD.create_tech_one_resistance()
             type = "unlock-recipe",
             recipe = This_MOD.recipe.name .. Count
         })
-        Tech.name = GPrefix.name .. "-" .. Count
-        Tech.name = This_MOD.tech.name .. "-" .. Tech.name
+        Tech.name = GPrefix.name .. "-" .. Count .. "-" .. Tech.name
         Count = Count + 1
 
         --- Daño a absorber
@@ -329,11 +328,11 @@ function This_MOD.create_tech_all_resistance()
     --- Agregar los prerequisitos
     local Count = 1
     for _, _ in pairs(This_MOD.damages) do
-        local Name = GPrefix.name .. "-" .. Count
-        Name = This_MOD.tech.name .. "-" .. Name
+        table.insert(
+            Tech.prerequisites,
+            GPrefix.name .. "-" .. Count .. "-" .. This_MOD.tech.name
+        )
         Count = Count + 1
-
-        table.insert(Tech.prerequisites, Name)
     end
 
     --- Agregar la receta
