@@ -338,6 +338,10 @@ function This_MOD.create_tech_all_resistance()
     --- Nombre de la tecnología
     Tech.name = GPrefix.name .. "-" .. Count .. "-" .. Tech.name
 
+    --- Daño a absorber
+    table.insert(Tech.localised_name, " - ")
+    table.insert(Tech.localised_name, { "armor-description." .. This_MOD.prefix .. "all" })
+
     --- Agregar la receta
     table.insert(Tech.effects, {
         type = "unlock-recipe",
@@ -360,6 +364,7 @@ end
 
 --- Iniciar el modulo
 This_MOD.start()
+GPrefix.var_dump(GPrefix.tech.raw)
 -- ERROR()
 
 ---------------------------------------------------------------------------------------------------
