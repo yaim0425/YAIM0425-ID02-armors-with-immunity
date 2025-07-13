@@ -279,7 +279,7 @@ end
 
 ---------------------------------------------------------------------------------------------------
 
---- Crear la tecnología para una inmunidad
+--- Crear las tecnologias
 function This_MOD.create_techs()
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
