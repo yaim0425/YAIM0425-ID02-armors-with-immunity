@@ -22,13 +22,13 @@ function This_MOD.start()
 
     -- --- Crear las recetas
     This_MOD.create_recipes_one_resistance()
-    -- This_MOD.create_recipes_all_resistance()
+    This_MOD.create_recipes_all_resistance()
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
     --- Crear los objetos
     This_MOD.create_armors_one_resistance()
-    -- This_MOD.create_armors_all_resistance()
+    This_MOD.create_armors_all_resistance()
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 end
@@ -161,13 +161,13 @@ end
 --- Crear la receta para la armadura con todas las inmunidades
 function This_MOD.create_recipes_all_resistance()
     --- Nueva receta
-    local Recipe           = util.copy(This_MOD.recipe)
-    local Count            = GPrefix.get_length(This_MOD.damages) + 1
+    local Recipe = util.copy(This_MOD.recipe)
+    local Count = GPrefix.get_length(This_MOD.damages) + 1
 
     --- Actualizar los valores
     Recipe.results[1].name = Recipe.name .. Count
-    Recipe.name            = Recipe.name .. Count
-    Recipe.order           = GPrefix.pad_left(This_MOD.digit, Count) .. "0"
+    Recipe.name = Recipe.name .. Count
+    Recipe.order = GPrefix.pad_left_zeros(This_MOD.digit, Count) .. "0"
     table.insert(Recipe.localised_name, { "armor-description." .. This_MOD.prefix .. "all" })
     table.insert(Recipe.icons, This_MOD.Indicator)
 
@@ -181,11 +181,8 @@ function This_MOD.create_recipes_all_resistance()
         })
     end
 
-    --- Crear el prototipo
-    GPrefix.addDataRaw({ Recipe })
-
     --- Agregar a la tecnología
-    GPrefix.addRecipeToTechnology(nil, This_MOD.recipe_name, Recipe)
+    GPrefix.add_recipe_to_tech_with_recipe(This_MOD.recipe_name, Recipe)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -204,7 +201,11 @@ function This_MOD.create_armors_one_resistance()
         table.insert(Armor.localised_name, { "damage-type-name." .. damage })
 
         --- Agregar la inmunidad
-        table.insert(Armor.resistances, { type = damage, decrease = 0, percent = 100 })
+        table.insert(Armor.resistances, {
+            type = damage,
+            decrease = 0,
+            percent = 100
+        })
 
         --- Agregar el indicador
         table.insert(Armor.icons, This_MOD.Indicator)
@@ -221,20 +222,24 @@ function This_MOD.create_armors_all_resistance()
     local Count = GPrefix.get_length(This_MOD.damages) + 1
 
     --- Actualizar los valores
-    Armor.name  = Armor.name .. Count
-    Armor.order = GPrefix.pad_left(This_MOD.digit, Count) .. "0"
+    Armor.name = Armor.name .. Count
+    Armor.order = GPrefix.pad_left_zeros(This_MOD.digit, Count) .. "0"
     table.insert(Armor.localised_name, { "armor-description." .. This_MOD.prefix .. "all" })
 
     --- Agregar la inmunidad
     for damage, _ in pairs(This_MOD.damages) do
-        table.insert(Armor.resistances, { type = damage, decrease = 0, percent = 100 })
+        table.insert(Armor.resistances, {
+            type = damage,
+            decrease = 0,
+            percent = 100
+        })
     end
 
     --- Agregar el indicador
     table.insert(Armor.icons, This_MOD.Indicator)
 
     --- Crear el prototipo
-    GPrefix.addDataRaw({ Armor })
+    GPrefix.extend(Armor)
 end
 
 ---------------------------------------------------------------------------------------------------
