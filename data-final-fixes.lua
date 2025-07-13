@@ -335,6 +335,9 @@ function This_MOD.create_tech_all_resistance()
         Count = Count + 1
     end
 
+    --- Nombre de la tecnología
+    Tech.name = GPrefix.name .. "-" .. Count .. "-" .. Tech.name
+
     --- Agregar la receta
     table.insert(Tech.effects, {
         type = "unlock-recipe",
