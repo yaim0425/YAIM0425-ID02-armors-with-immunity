@@ -122,7 +122,7 @@ function This_MOD.setting_mod()
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
     This_MOD.Indicator = {
-        icon = data.raw["virtual-signal"]["signal-heart"].icon,
+        icon = data.raw["virtual-signal"]["signal-heart"].icons[1].icon,
         shift = { 14, -14 },
         scale = 0.15
     }
@@ -250,6 +250,6 @@ end
 
 --- Iniciar el modulo
 This_MOD.start()
-ERROR()
+-- ERROR()
 
 ---------------------------------------------------------------------------------------------------
