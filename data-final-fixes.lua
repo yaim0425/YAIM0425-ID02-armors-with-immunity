@@ -31,20 +31,16 @@ function This_MOD.start()
     This_MOD.create_armors_all_resistance()
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+    --- Crear las tecnologias
+    This_MOD.create_tech_one_resistance()
+    This_MOD.create_tech_all_resistance()
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 end
 
 --- Valores de la referencia
 function This_MOD.setting_mod()
-    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-    ---> Renombrar las variables
-    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-
-    This_MOD.damages = data.raw["damage-type"]
-
-    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-
-
-
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     ---> Armadura a duplicar
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -107,6 +103,31 @@ function This_MOD.setting_mod()
 
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+    ---> Renombrar las variables
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+    This_MOD.damages = data.raw["damage-type"]
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+    ---> Tecnología a duplicar
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+    This_MOD.tech = GPrefix.get_technology({ name = This_MOD.recipe_name })
+    This_MOD.tech = util.copy(This_MOD.tech)
+
+    This_MOD.tech.effects = { }
+    This_MOD.tech.prerequisites = { This_MOD.tech.name }
+    This_MOD.tech.name = GPrefix.name .. "-" .. This_MOD.tech.name
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     ---> Calcular el numero de digitos a usar
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -140,6 +161,8 @@ end
 
 --- Crear las recetas para las armaduras con una inmunidad
 function This_MOD.create_recipes_one_resistance()
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
     local Count = 0
     for damage, _ in pairs(This_MOD.damages) do
         --- Nueva receta
@@ -153,13 +176,17 @@ function This_MOD.create_recipes_one_resistance()
         table.insert(Recipe.localised_name, { "damage-type-name." .. damage })
         table.insert(Recipe.icons, This_MOD.Indicator)
 
-        --- Agregar a la tecnología
-        GPrefix.add_recipe_to_tech_with_recipe(This_MOD.recipe_name, Recipe)
+        --- Agregar la receta
+        GPrefix.extend(Recipe)
     end
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 end
 
 --- Crear la receta para la armadura con todas las inmunidades
 function This_MOD.create_recipes_all_resistance()
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
     --- Nueva receta
     local Recipe = util.copy(This_MOD.recipe)
     local Count = GPrefix.get_length(This_MOD.damages) + 1
@@ -181,14 +208,18 @@ function This_MOD.create_recipes_all_resistance()
         })
     end
 
-    --- Agregar a la tecnología
-    GPrefix.add_recipe_to_tech_with_recipe(This_MOD.recipe_name, Recipe)
+    --- Agregar la receta
+    GPrefix.extend(Recipe)
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 end
 
 ---------------------------------------------------------------------------------------------------
 
 --- Crear las armaduras con una inmunidad
 function This_MOD.create_armors_one_resistance()
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
     local Count = 0
     for damage, _ in pairs(This_MOD.damages) do
         --- Nueva armadura
@@ -213,10 +244,14 @@ function This_MOD.create_armors_one_resistance()
         --- Crear el prototipo
         GPrefix.extend(Armor)
     end
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 end
 
 --- Crear la armadura con todas las inmunidades
 function This_MOD.create_armors_all_resistance()
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
     --- Nueva armadura
     local Armor = util.copy(This_MOD.item)
     local Count = GPrefix.get_length(This_MOD.damages) + 1
@@ -240,6 +275,36 @@ function This_MOD.create_armors_all_resistance()
 
     --- Crear el prototipo
     GPrefix.extend(Armor)
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+end
+
+---------------------------------------------------------------------------------------------------
+
+--- Crear la tecnología para una inmunidad
+function This_MOD.create_tech_one_resistance()
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+    --- Validación
+    if not This_MOD.tech then return end
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+    --- Duplicar la tecnología
+    local Tech = util.copy(This_MOD.tech)
+    GPrefix.var_dump(Tech)
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+end
+
+--- Crear la tecnología para todas las inmunidades
+function This_MOD.create_tech_all_resistance()
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+    --- Validación
+    if not This_MOD.tech then return end
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -252,5 +317,6 @@ end
 
 --- Iniciar el modulo
 This_MOD.start()
+ERROR()
 
 ---------------------------------------------------------------------------------------------------
