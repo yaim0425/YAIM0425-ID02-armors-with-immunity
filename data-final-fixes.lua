@@ -18,6 +18,9 @@ function This_MOD.start()
     --- Valores de la referencia
     This_MOD.setting_mod()
 
+    --- Tecnología a duplicar
+    This_MOD.get_technology()
+
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
     -- --- Crear las recetas
@@ -113,21 +116,6 @@ function This_MOD.setting_mod()
 
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-    ---> Tecnología a duplicar
-    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-
-    This_MOD.tech = GPrefix.get_technology({ name = This_MOD.recipe_name })
-    This_MOD.tech = util.copy(This_MOD.tech)
-
-    This_MOD.tech.effects = { }
-    This_MOD.tech.prerequisites = { This_MOD.tech.name }
-    This_MOD.tech.name = GPrefix.name .. "-" .. This_MOD.tech.name
-
-    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-
-
-
-    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     ---> Calcular el numero de digitos a usar
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -156,6 +144,17 @@ end
 
 
 
+
+---------------------------------------------------------------------------------------------------
+
+--- Tecnología a duplicar
+function This_MOD.get_technology()
+    This_MOD.tech = GPrefix.get_technology({ name = This_MOD.recipe_name })
+    if not This_MOD.tech then return end
+    This_MOD.tech = util.copy(This_MOD.tech)
+    This_MOD.tech.prerequisites = { }
+    This_MOD.tech.effects = {}
+end
 
 ---------------------------------------------------------------------------------------------------
 
