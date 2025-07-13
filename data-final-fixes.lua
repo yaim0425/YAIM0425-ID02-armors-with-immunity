@@ -21,7 +21,7 @@ function This_MOD.start()
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
     -- --- Crear las recetas
-    -- This_MOD.create_recipes_one_resistance()
+    This_MOD.create_recipes_one_resistance()
     -- This_MOD.create_recipes_all_resistance()
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -149,7 +149,7 @@ function This_MOD.create_recipes_one_resistance()
         --- Actualizar los valores
         Recipe.results[1].name = Recipe.name .. Count
         Recipe.name = Recipe.name .. Count
-        Recipe.order = GPrefix.pad_left(This_MOD.digit, Count) .. "0"
+        Recipe.order = GPrefix.pad_left_zeros(This_MOD.digit, Count) .. "0"
         table.insert(Recipe.localised_name, { "damage-type-name." .. damage })
         table.insert(Recipe.icons, This_MOD.Indicator)
 
