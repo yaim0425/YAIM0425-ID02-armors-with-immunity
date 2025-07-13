@@ -287,6 +287,8 @@ function This_MOD.create_tech_one_resistance()
     --- Validación
     if not This_MOD.tech then return end
 
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
     --- Recorrer los daños
     local Count = 1
     for damage, _ in pairs(This_MOD.damages) do
