@@ -329,9 +329,8 @@ function This_MOD.create_tech_all_resistance()
     --- Agregar los prerequisitos
     local Count = 1
     for _, _ in pairs(This_MOD.damages) do
-        local Name = Tech.name
-        Name = GPrefix.name .. "-" .. Count
-        Name = Name .. "-" .. Name
+        local Name = GPrefix.name .. "-" .. Count
+        Name = This_MOD.tech.name .. "-" .. Name
         Count = Count + 1
 
         table.insert(Tech.prerequisites, Name)
