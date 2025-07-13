@@ -152,7 +152,7 @@ function This_MOD.get_technology()
     This_MOD.tech = GPrefix.get_technology({ name = This_MOD.recipe_name })
     if not This_MOD.tech then return end
     This_MOD.tech = util.copy(This_MOD.tech)
-    This_MOD.tech.prerequisites = { }
+    This_MOD.tech.prerequisites = {}
     This_MOD.tech.effects = {}
 end
 
@@ -287,11 +287,23 @@ function This_MOD.create_tech_one_resistance()
     --- Validación
     if not This_MOD.tech then return end
 
-    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+    --- Cantidad de armaduras creadas
+    local Max = GPrefix.get_length(This_MOD.damages) + 1
 
-    --- Duplicar la tecnología
-    local Tech = util.copy(This_MOD.tech)
-    GPrefix.var_dump(Tech)
+    --- Crear las tecnologías
+    for i = 1, Max, 1 do
+        --- Duplicar la tecnología
+        local Tech = util.copy(This_MOD.tech)
+        Tech.prerequisites = { Tech.name }
+        Tech.effects = { {
+            type = "unlock-recipe",
+            recipe = This_MOD.recipe.name .. i
+        } }
+        Tech.name = GPrefix.name .. "-" .. i .. "-" .. Tech.name
+
+        --- Crear la tecnología
+        GPrefix.extend(Tech)
+    end
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 end
