@@ -36,7 +36,7 @@ function This_MOD.start()
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
     --- Crear las tecnologias
-    This_MOD.create_tech_one_resistance()
+    This_MOD.create_techs()
     This_MOD.create_tech_all_resistance()
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -281,7 +281,7 @@ end
 ---------------------------------------------------------------------------------------------------
 
 --- Crear la tecnología para una inmunidad
-function This_MOD.create_tech_one_resistance()
+function This_MOD.create_techs()
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
     --- Validación
