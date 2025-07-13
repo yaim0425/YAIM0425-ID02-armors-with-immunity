@@ -37,7 +37,6 @@ function This_MOD.start()
 
     --- Crear las tecnologias
     This_MOD.create_techs()
-    This_MOD.create_tech_all_resistance()
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 end
@@ -304,16 +303,6 @@ function This_MOD.create_techs()
         --- Crear la tecnología
         GPrefix.extend(Tech)
     end
-
-    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-end
-
---- Crear la tecnología para todas las inmunidades
-function This_MOD.create_tech_all_resistance()
-    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-
-    --- Validación
-    if not This_MOD.tech then return end
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 end
