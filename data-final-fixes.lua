@@ -26,8 +26,8 @@ function This_MOD.start()
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-    -- --- Crear los objetos
-    -- This_MOD.create_armors_one_resistance()
+    --- Crear los objetos
+    This_MOD.create_armors_one_resistance()
     -- This_MOD.create_armors_all_resistance()
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -45,8 +45,6 @@ function This_MOD.setting_mod()
 
 
 
-
-
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     ---> Armadura a duplicar
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -59,8 +57,6 @@ function This_MOD.setting_mod()
 
 
 
-
-
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     ---> Subgroup para este MOD
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -70,8 +66,6 @@ function This_MOD.setting_mod()
     GPrefix.duplicate_subgroup(Old_subgroup, New_subgroup)
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-
-
 
 
 
@@ -88,8 +82,6 @@ function This_MOD.setting_mod()
     table.insert(This_MOD.item.localised_name, " - ")
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-
-
 
 
 
@@ -114,8 +106,6 @@ function This_MOD.setting_mod()
 
 
 
-
-
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     ---> Calcular el numero de digitos a usar
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -127,13 +117,11 @@ function This_MOD.setting_mod()
 
 
 
-
-
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     ---> Indicador de mod
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-    This_MOD.Indocator = {
+    This_MOD.Indicator = {
         icon = data.raw["virtual-signal"]["signal-heart"].icon,
         shift = { 14, -14 },
         scale = 0.15
@@ -163,7 +151,7 @@ function This_MOD.create_recipes_one_resistance()
         Recipe.name = Recipe.name .. Count
         Recipe.order = GPrefix.pad_left(This_MOD.digit, Count) .. "0"
         table.insert(Recipe.localised_name, { "damage-type-name." .. damage })
-        table.insert(Recipe.icons, This_MOD.Indocator)
+        table.insert(Recipe.icons, This_MOD.Indicator)
 
         --- Crear el prototipo
         GPrefix.extend(Recipe)
@@ -184,7 +172,7 @@ function This_MOD.create_recipes_all_resistance()
     Recipe.name            = Recipe.name .. Count
     Recipe.order           = GPrefix.pad_left(This_MOD.digit, Count) .. "0"
     table.insert(Recipe.localised_name, { "armor-description." .. This_MOD.prefix .. "all" })
-    table.insert(Recipe.icons, This_MOD.Indocator)
+    table.insert(Recipe.icons, This_MOD.Indicator)
 
     --- Agregar los ingredientes
     Recipe.ingredients = {}
@@ -210,11 +198,11 @@ function This_MOD.create_armors_one_resistance()
     local Count = 0
     for damage, _ in pairs(This_MOD.damages) do
         --- Nueva armadura
+        Count = Count + 1
         local Armor = util.copy(This_MOD.item)
-        Count       = Count + 1
 
         --- Actualizar los valores
-        Armor.name  = Armor.name .. Count
+        Armor.name = Armor.name .. Count
         Armor.order = GPrefix.pad_left(This_MOD.digit, Count) .. "0"
         table.insert(Armor.localised_name, { "damage-type-name." .. damage })
 
@@ -222,10 +210,10 @@ function This_MOD.create_armors_one_resistance()
         table.insert(Armor.resistances, { type = damage, decrease = 0, percent = 100 })
 
         --- Agregar el indicador
-        table.insert(Armor.icons, This_MOD.Indocator)
+        table.insert(Armor.icons, This_MOD.Indicator)
 
         --- Crear el prototipo
-        GPrefix.addDataRaw({ Armor })
+        GPrefix.extend(Armor)
     end
 end
 
@@ -246,7 +234,7 @@ function This_MOD.create_armors_all_resistance()
     end
 
     --- Agregar el indicador
-    table.insert(Armor.icons, This_MOD.Indocator)
+    table.insert(Armor.icons, This_MOD.Indicator)
 
     --- Crear el prototipo
     GPrefix.addDataRaw({ Armor })
