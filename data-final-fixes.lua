@@ -153,9 +153,6 @@ function This_MOD.create_recipes_one_resistance()
         table.insert(Recipe.localised_name, { "damage-type-name." .. damage })
         table.insert(Recipe.icons, This_MOD.Indicator)
 
-        --- Crear el prototipo
-        GPrefix.extend(Recipe)
-
         --- Agregar a la tecnología
         GPrefix.add_recipe_to_tech_with_recipe(This_MOD.recipe_name, Recipe)
     end
@@ -249,7 +246,6 @@ end
 ---------------------------------------------------------------------------------------------------
 
 --- Iniciar el modulo
-This_MOD.start()
--- ERROR()
+This_MOD.Start()
 
 ---------------------------------------------------------------------------------------------------
