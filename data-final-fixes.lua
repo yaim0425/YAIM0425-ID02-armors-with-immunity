@@ -292,11 +292,11 @@ function This_MOD.create_tech_one_resistance()
     for damage, _ in pairs(This_MOD.damages) do
         --- Duplicar la tecnología
         local Tech = util.copy(This_MOD.tech)
-        Tech.effects = { {
+        table.insert(Tech.prerequisites, Tech.name)
+        table.insert(Tech.effects, {
             type = "unlock-recipe",
             recipe = This_MOD.recipe.name .. Count
-        } }
-        Tech.prerequisites = { Tech.name }
+        } )
         Tech.name = GPrefix.name .. "-" .. Count
         Tech.name = Tech.name .. "-" .. Tech.name
         Count = Count + 1
