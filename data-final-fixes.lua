@@ -300,7 +300,7 @@ function This_MOD.create_tech_one_resistance()
             recipe = This_MOD.recipe.name .. Count
         })
         Tech.name = GPrefix.name .. "-" .. Count
-        Tech.name = Tech.name .. "-" .. Tech.name
+        Tech.name = This_MOD.tech.name .. "-" .. Tech.name
         Count = Count + 1
 
         --- Daño a absorber
