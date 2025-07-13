@@ -364,7 +364,5 @@ end
 
 --- Iniciar el modulo
 This_MOD.start()
-GPrefix.var_dump(GPrefix.tech.raw)
--- ERROR()
 
 ---------------------------------------------------------------------------------------------------
