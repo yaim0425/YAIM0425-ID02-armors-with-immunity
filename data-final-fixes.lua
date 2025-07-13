@@ -10,34 +10,31 @@ local This_MOD = {}
 
 --- Iniciar el modulo
 function This_MOD.start()
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+    --- Obtener información del nombre de MOD
+    GPrefix.split_name_folder(This_MOD)
+
     --- Valores de la referencia
     This_MOD.setting_mod()
 
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
     -- --- Crear las recetas
-    -- This_MOD.create_recipes_one_resistance()
+    This_MOD.create_recipes_one_resistance()
     -- This_MOD.create_recipes_all_resistance()
 
-    -- --- Crear los objetos
-    -- This_MOD.create_armors_one_resistance()
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+    --- Crear los objetos
+    This_MOD.create_armors_one_resistance()
     -- This_MOD.create_armors_all_resistance()
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 end
 
 --- Valores de la referencia
 function This_MOD.setting_mod()
-    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-    ---> Otros valores
-    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-
-    This_MOD.index = "0200"
-    This_MOD.prefix = GPrefix.name .. "-" .. This_MOD.index .. "-"
-    This_MOD.name = "armors-with-immunity"
-
-    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-
-
-
-
-
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     ---> Renombrar las variables
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -48,19 +45,15 @@ function This_MOD.setting_mod()
 
 
 
-
-
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     ---> Armadura a duplicar
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
     local Default = "light-armor"
-    local Setting = GPrefix.Setting[This_MOD.prefix]["armor-base"]
+    local Setting = GPrefix.Setting[This_MOD.id]["armor-base"]
     local Item_base = GPrefix.Items[Setting] or GPrefix.Items[Default]
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-
-
 
 
 
@@ -73,8 +66,6 @@ function This_MOD.setting_mod()
     GPrefix.duplicate_subgroup(Old_subgroup, New_subgroup)
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-
-
 
 
 
@@ -91,8 +82,6 @@ function This_MOD.setting_mod()
     table.insert(This_MOD.item.localised_name, " - ")
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-
-
 
 
 
@@ -117,8 +106,6 @@ function This_MOD.setting_mod()
 
 
 
-
-
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     ---> Calcular el numero de digitos a usar
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -130,14 +117,12 @@ function This_MOD.setting_mod()
 
 
 
-
-
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     ---> Indicador de mod
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-    This_MOD.Indocator = {
-        icon = data.raw["virtual-signal"]["signal-heart"].icon,
+    This_MOD.Indicator = {
+        icon = data.raw["virtual-signal"]["signal-heart"].icons[1].icon,
         shift = { 14, -14 },
         scale = 0.15
     }
@@ -158,21 +143,21 @@ function This_MOD.create_recipes_one_resistance()
     local Count = 0
     for damage, _ in pairs(This_MOD.damages) do
         --- Nueva receta
-        local Recipe           = util.copy(This_MOD.recipe)
-        Count                  = Count + 1
+        Count = Count + 1
+        local Recipe = util.copy(This_MOD.recipe)
 
         --- Actualizar los valores
         Recipe.results[1].name = Recipe.name .. Count
-        Recipe.name            = Recipe.name .. Count
-        Recipe.order           = GPrefix.pad_left(This_MOD.digit, Count) .. "0"
+        Recipe.name = Recipe.name .. Count
+        Recipe.order = GPrefix.pad_left_zeros(This_MOD.digit, Count) .. "0"
         table.insert(Recipe.localised_name, { "damage-type-name." .. damage })
-        table.insert(Recipe.icons, This_MOD.Indocator)
+        table.insert(Recipe.icons, This_MOD.Indicator)
 
         --- Crear el prototipo
-        GPrefix.addDataRaw({ Recipe })
+        GPrefix.extend(Recipe)
 
         --- Agregar a la tecnología
-        GPrefix.addRecipeToTechnology(nil, This_MOD.recipe_name, Recipe)
+        GPrefix.add_recipe_to_tech_with_recipe(This_MOD.recipe_name, Recipe)
     end
 end
 
@@ -187,7 +172,7 @@ function This_MOD.create_recipes_all_resistance()
     Recipe.name            = Recipe.name .. Count
     Recipe.order           = GPrefix.pad_left(This_MOD.digit, Count) .. "0"
     table.insert(Recipe.localised_name, { "armor-description." .. This_MOD.prefix .. "all" })
-    table.insert(Recipe.icons, This_MOD.Indocator)
+    table.insert(Recipe.icons, This_MOD.Indicator)
 
     --- Agregar los ingredientes
     Recipe.ingredients = {}
@@ -213,22 +198,22 @@ function This_MOD.create_armors_one_resistance()
     local Count = 0
     for damage, _ in pairs(This_MOD.damages) do
         --- Nueva armadura
+        Count = Count + 1
         local Armor = util.copy(This_MOD.item)
-        Count       = Count + 1
 
         --- Actualizar los valores
-        Armor.name  = Armor.name .. Count
-        Armor.order = GPrefix.pad_left(This_MOD.digit, Count) .. "0"
+        Armor.name = Armor.name .. Count
+        Armor.order = GPrefix.pad_left_zeros(This_MOD.digit, Count) .. "0"
         table.insert(Armor.localised_name, { "damage-type-name." .. damage })
 
         --- Agregar la inmunidad
         table.insert(Armor.resistances, { type = damage, decrease = 0, percent = 100 })
 
         --- Agregar el indicador
-        table.insert(Armor.icons, This_MOD.Indocator)
+        table.insert(Armor.icons, This_MOD.Indicator)
 
         --- Crear el prototipo
-        GPrefix.addDataRaw({ Armor })
+        GPrefix.extend(Armor)
     end
 end
 
@@ -249,7 +234,7 @@ function This_MOD.create_armors_all_resistance()
     end
 
     --- Agregar el indicador
-    table.insert(Armor.icons, This_MOD.Indocator)
+    table.insert(Armor.icons, This_MOD.Indicator)
 
     --- Crear el prototipo
     GPrefix.addDataRaw({ Armor })
@@ -265,5 +250,6 @@ end
 
 --- Iniciar el modulo
 This_MOD.start()
+-- ERROR()
 
 ---------------------------------------------------------------------------------------------------
