@@ -296,7 +296,7 @@ function This_MOD.create_tech_one_resistance()
         table.insert(Tech.effects, {
             type = "unlock-recipe",
             recipe = This_MOD.recipe.name .. Count
-        } )
+        })
         Tech.name = GPrefix.name .. "-" .. Count
         Tech.name = Tech.name .. "-" .. Tech.name
         Count = Count + 1
@@ -318,6 +318,31 @@ function This_MOD.create_tech_all_resistance()
 
     --- Validación
     if not This_MOD.tech then return end
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+    --- Duplicar la tecnología
+    local Tech = util.copy(This_MOD.tech)
+
+    --- Agregar los prerequisitos
+    local Count = 1
+    for _, _ in pairs(This_MOD.damages) do
+        local Name = Tech.name
+        Name = GPrefix.name .. "-" .. Count
+        Name = Name .. "-" .. Name
+        Count = Count + 1
+
+        table.insert(Tech.prerequisites, Name)
+    end
+
+    --- Agregar la receta
+    table.insert(Tech.effects, {
+        type = "unlock-recipe",
+        recipe = This_MOD.recipe.name .. Count
+    })
+
+    --- Crear la tecnología
+    GPrefix.extend(Tech)
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 end
