@@ -50,7 +50,7 @@ function This_MOD.setting_mod()
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
     local Default = "light-armor"
-    local Setting = GPrefix.Setting[This_MOD.prefix]["armor-base"]
+    local Setting = GPrefix.Setting[This_MOD.id]["armor-base"]
     local Item_base = GPrefix.Items[Setting] or GPrefix.Items[Default]
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -203,7 +203,7 @@ function This_MOD.create_armors_one_resistance()
 
         --- Actualizar los valores
         Armor.name = Armor.name .. Count
-        Armor.order = GPrefix.pad_left(This_MOD.digit, Count) .. "0"
+        Armor.order = GPrefix.pad_left_zeros(This_MOD.digit, Count) .. "0"
         table.insert(Armor.localised_name, { "damage-type-name." .. damage })
 
         --- Agregar la inmunidad
