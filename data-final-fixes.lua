@@ -147,17 +147,6 @@ end
 
 ---------------------------------------------------------------------------------------------------
 
---- Tecnología a duplicar
-function This_MOD.get_technology()
-    This_MOD.tech = GPrefix.get_technology({ name = This_MOD.recipe_name })
-    if not This_MOD.tech then return end
-    This_MOD.tech = util.copy(This_MOD.tech)
-    This_MOD.tech.prerequisites = {}
-    This_MOD.tech.effects = {}
-end
-
----------------------------------------------------------------------------------------------------
-
 --- Crear las recetas para las armaduras con una inmunidad
 function This_MOD.create_recipes_one_resistance()
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -279,6 +268,15 @@ function This_MOD.create_armors_all_resistance()
 end
 
 ---------------------------------------------------------------------------------------------------
+
+--- Tecnología a duplicar
+function This_MOD.get_technology()
+    This_MOD.tech = GPrefix.get_technology({ name = This_MOD.recipe_name })
+    if not This_MOD.tech then return end
+    This_MOD.tech = util.copy(This_MOD.tech)
+    This_MOD.tech.prerequisites = {}
+    This_MOD.tech.effects = {}
+end
 
 --- Crear la tecnología para una inmunidad
 function This_MOD.create_tech_one_resistance()
