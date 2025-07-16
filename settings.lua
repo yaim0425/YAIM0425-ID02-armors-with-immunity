@@ -17,7 +17,7 @@ require("__zzzYAIM0425-0000-lib__.settings-final-fixes")
 local settings = {
     type = "string-setting",
     name = GPrefix.name .. "-0200-armor-base",
-    localised_name = {"gui.armor"},
+    localised_name = { "gui.armor" },
     order = "1",
     setting_type = "startup",
     default_value = "light-armor",
