@@ -247,7 +247,7 @@ function This_MOD.create_armors_all_resistance()
     --- Actualizar los valores
     Armor.name = Armor.name .. Count
     Armor.order = GPrefix.pad_left_zeros(This_MOD.digit, Count) .. "0"
-    table.insert(Armor.localised_name, { "armor-description." .. This_MOD.prefix .. "all" })
+    table.insert(Armor.localised_name, { "gui-blueprint-library.shelf-choice-all" })
 
     --- Agregar la inmunidad
     for damage, _ in pairs(This_MOD.damages) do
