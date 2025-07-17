@@ -50,7 +50,7 @@ function This_MOD.setting_mod()
 
     local Default = "light-armor"
     local Setting = GPrefix.Setting[This_MOD.id]["armor-base"]
-    local Item_base = GPrefix.Items[Setting] or GPrefix.Items[Default]
+    local Item_base = GPrefix.items[Setting] or GPrefix.items[Default]
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -72,7 +72,7 @@ function This_MOD.setting_mod()
     ---> Objeto base
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-    This_MOD.item = GPrefix.Items[Item_base.name]
+    This_MOD.item = GPrefix.items[Item_base.name]
     This_MOD.item = util.copy(This_MOD.item)
     This_MOD.item.name = This_MOD.prefix .. This_MOD.item.name .. "-"
     This_MOD.item.localised_description = { "" }
@@ -88,7 +88,7 @@ function This_MOD.setting_mod()
     ---> Receta base
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-    This_MOD.recipe = GPrefix.Recipes[Item_base.name][1]
+    This_MOD.recipe = GPrefix.recipes[Item_base.name][1]
     This_MOD.recipe = util.copy(This_MOD.recipe)
     This_MOD.recipe_name = This_MOD.recipe.name
     This_MOD.recipe.name = This_MOD.prefix .. This_MOD.recipe.name .. "-"
