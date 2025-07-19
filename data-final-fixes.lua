@@ -49,7 +49,7 @@ function This_MOD.setting_mod()
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
     local Default = "light-armor"
-    local Setting = GPrefix.Setting[This_MOD.id]["armor-base"]
+    local Setting = GPrefix.setting[This_MOD.id]["armor-base"]
     local Item_base = GPrefix.items[Setting] or GPrefix.items[Default]
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -130,11 +130,8 @@ function This_MOD.setting_mod()
     ---> Indicador de mod
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-    This_MOD.indicator = {
-        icon = data.raw["virtual-signal"]["signal-heart"].icons[1].icon,
-        shift = { 14, -14 },
-        scale = 0.15
-    }
+    local BackColor = data.raw["virtual-signal"]["signal-heart"].icons[1].icon
+    This_MOD.indicator = { icon = BackColor, scale = 0.15, shift = { 14, -14 } }
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 end
