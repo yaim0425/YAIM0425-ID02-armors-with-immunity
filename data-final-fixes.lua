@@ -133,10 +133,10 @@ function This_MOD.setting_mod()
     local BackColor = ""
 
     BackColor = data.raw["virtual-signal"]["signal-heart"].icons[1].icon
-    This_MOD.indicator_heart = { icon = BackColor, scale = 0.15, shift = { 14, -14 } }
+    This_MOD.indicator = { icon = BackColor, scale = 0.15, shift = { 14, -14 } }
 
-    BackColor = data.raw["virtual-signal"]["signal-black"].icons[1].icon
-    This_MOD.indicator_black = { icon = BackColor, scale = 0.15, shift = { 14, -14 } }
+    BackColor = data.raw["virtual-signal"]["signal-white"].icons[1].icon
+    This_MOD.indicator_back = { icon = BackColor, scale = 0.15, shift = { 14, -14 } }
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 end
@@ -164,8 +164,8 @@ function This_MOD.create_recipes_one_resistance()
         Recipe.name = Recipe.name .. Count
         Recipe.order = GPrefix.pad_left_zeros(This_MOD.digit, Count) .. "0"
         table.insert(Recipe.localised_name, { "damage-type-name." .. damage })
-        table.insert(Recipe.icons, This_MOD.indicator_black)
-        table.insert(Recipe.icons, This_MOD.indicator_heart)
+        table.insert(Recipe.icons, This_MOD.indicator_back)
+        table.insert(Recipe.icons, This_MOD.indicator)
 
         --- Agregar la receta
         GPrefix.extend(Recipe)
@@ -187,8 +187,8 @@ function This_MOD.create_recipes_all_resistance()
     Recipe.name = Recipe.name .. Count
     Recipe.order = GPrefix.pad_left_zeros(This_MOD.digit, Count) .. "0"
     table.insert(Recipe.localised_name, { "armor-description." .. This_MOD.prefix .. "all" })
-    table.insert(Recipe.icons, This_MOD.indicator_black)
-    table.insert(Recipe.icons, This_MOD.indicator_heart)
+    table.insert(Recipe.icons, This_MOD.indicator_back)
+    table.insert(Recipe.icons, This_MOD.indicator)
 
     --- Agregar los ingredientes
     Recipe.ingredients = {}
@@ -231,8 +231,8 @@ function This_MOD.create_armors_one_resistance()
         })
 
         --- Agregar el indicador
-        table.insert(Armor.icons, This_MOD.indicator_black)
-        table.insert(Armor.icons, This_MOD.indicator_heart)
+        table.insert(Armor.icons, This_MOD.indicator_back)
+        table.insert(Armor.icons, This_MOD.indicator)
 
         --- Crear el prototipo
         GPrefix.extend(Armor)
@@ -264,8 +264,8 @@ function This_MOD.create_armors_all_resistance()
     end
 
     --- Agregar el indicador
-    table.insert(Armor.icons, This_MOD.indicator_black)
-    table.insert(Armor.icons, This_MOD.indicator_heart)
+    table.insert(Armor.icons, This_MOD.indicator_back)
+    table.insert(Armor.icons, This_MOD.indicator)
 
     --- Crear el prototipo
     GPrefix.extend(Armor)
