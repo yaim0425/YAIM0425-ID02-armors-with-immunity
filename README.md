@@ -4,8 +4,8 @@
 
 This MOD introduces **special armors** that grant **complete immunity to specific types of damage or all types of damage** in Factorio.
 
-> 🧩 Part of the [zzzYAIM0425 series](https://github.com/yaim0425), designed to provide modular improvements and utilities that enhance gameplay.  
-> 🔧 Depends on [`zzzYAIM0425 0000 lib`](https://github.com/yaim0425/zzzYAIM0425-0000-lib), which is automatically handled by the system.  
+> 🧩 Part of the [zzzYAIM0425 series](https://github.com/yaim0425), designed to offer modular improvements and utilities to enhance the game experience.  
+> 🔧 Depends on [`zzzYAIM0425 0000 lib`](https://github.com/yaim0425/zzzYAIM0425-0000-lib), which is handled automatically by the system.  
 > All its content is available to anyone who needs it; I'm open to changes, corrections, and suggestions.
 
 ## 📦 Purpose
