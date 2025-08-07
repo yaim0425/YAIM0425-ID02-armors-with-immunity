@@ -126,8 +126,9 @@ function This_MOD.setting_mod()
     ---> Indicador de mod
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-    local BackColor = data.raw["virtual-signal"]["signal-heart"].icons[1].icon
-    This_MOD.indicator = { icon = BackColor, scale = 0.15, shift = { 12, -12 } }
+    local Indicator = data.raw["virtual-signal"]["signal-heart"].icons[1].icon
+    This_MOD.indicator = { icon = Indicator, scale = 0.15, shift = { 12, -12 } }
+    This_MOD.tech_icon = { icon = Indicator, scale = 0.50, shift = { 50, -50 } }
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -300,6 +301,9 @@ function This_MOD.create_tech_one_resistance()
         --- Daño a absorber
         table.insert(Tech.localised_name, " - ")
         table.insert(Tech.localised_name, { "damage-type-name." .. damage })
+
+        --- Indicador del mod
+        table.insert(Tech.icons, This_MOD.tech_icon)
 
         --- Crear la tecnología
         GPrefix.extend(Tech)
