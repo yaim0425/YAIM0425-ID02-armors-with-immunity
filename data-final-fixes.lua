@@ -127,7 +127,7 @@ function This_MOD.setting_mod()
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
     local BackColor = data.raw["virtual-signal"]["signal-heart"].icons[1].icon
-    This_MOD.indicator = { icon = BackColor, scale = 0.15, shift = { 14, -14 } }
+    This_MOD.indicator = { icon = BackColor, scale = 0.15, shift = { 12, -12 } }
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
