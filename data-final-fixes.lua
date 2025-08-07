@@ -138,6 +138,8 @@ function This_MOD.setting_mod()
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
     This_MOD.tech = GPrefix.get_technology({ name = GPrefix.recipes[Item_base.name][1].name })
+    This_MOD.tech = util.copy(This_MOD.tech)
+    if not This_MOD.tech then This_MOD.tech.effects = {} end
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 end
@@ -285,13 +287,15 @@ function This_MOD.create_tech_one_resistance()
     for damage, _ in pairs(This_MOD.damages) do
         --- Duplicar la tecnología
         local Tech = util.copy(This_MOD.tech)
-        Tech.effects = {}
         table.insert(Tech.prerequisites, Tech.name)
         table.insert(Tech.effects, {
             type = "unlock-recipe",
             recipe = This_MOD.recipe.name .. damage
         })
-        Tech.name = GPrefix.name .. "-" .. damage .. "-" .. Tech.name
+        Tech.name =
+            GPrefix.name .. "-" ..
+            damage .. "-" ..
+            Tech.name
 
         --- Daño a absorber
         table.insert(Tech.localised_name, " - ")
@@ -315,13 +319,14 @@ function This_MOD.create_tech_all_resistance()
 
     --- Duplicar la tecnología
     local Tech = util.copy(This_MOD.tech)
-    Tech.effects = {}
 
     --- Agregar los prerequisitos
     for damage, _ in pairs(This_MOD.damages) do
         table.insert(
             Tech.prerequisites,
-            GPrefix.name .. "-" .. damage .. "-" .. This_MOD.tech.name
+            GPrefix.name .. "-" ..
+            damage .. "-" ..
+            This_MOD.tech.name
         )
     end
 
