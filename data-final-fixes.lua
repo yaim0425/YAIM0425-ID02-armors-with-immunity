@@ -140,7 +140,7 @@ function This_MOD.setting_mod()
 
     This_MOD.tech = GPrefix.get_technology({ name = GPrefix.recipes[Item_base.name][1].name })
     This_MOD.tech = util.copy(This_MOD.tech)
-    if not This_MOD.tech then This_MOD.tech.effects = {} end
+    if This_MOD.tech then This_MOD.tech.effects = {} end
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 end
