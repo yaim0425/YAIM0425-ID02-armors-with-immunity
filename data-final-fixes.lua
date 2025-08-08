@@ -324,6 +324,9 @@ function This_MOD.create_tech_all_resistance()
     --- Duplicar la tecnología
     local Tech = util.copy(This_MOD.tech)
 
+    --- Indicador del mod
+    table.insert(Tech.icons, This_MOD.tech_icon)
+
     --- Agregar los prerequisitos
     for damage, _ in pairs(This_MOD.damages) do
         table.insert(
