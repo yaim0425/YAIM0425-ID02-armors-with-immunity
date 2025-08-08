@@ -127,8 +127,11 @@ function This_MOD.setting_mod()
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
     local Indicator = data.raw["virtual-signal"]["signal-heart"].icons[1].icon
-    This_MOD.indicator = { icon = Indicator, scale = 0.15, shift = { 12, -12 } }
-    This_MOD.tech_icon = { icon = Indicator, scale = 0.50, shift = { 50, -50 } }
+
+    This_MOD.icon = {}
+    This_MOD.icon.tech = { icon = Indicator, scale = 0.50, shift = { 50, 50 } }
+    This_MOD.icon.tech_bg = { icon = GPrefix.color.black, scale = 0.50, shift = { 50, 50 } }
+    This_MOD.icon.other = { icon = Indicator, scale = 0.15, shift = { 12, -12 } }
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -168,7 +171,7 @@ function This_MOD.create_recipes_one_resistance()
         Recipe.name = Recipe.name .. damage
         Recipe.order = GPrefix.pad_left_zeros(This_MOD.digit, Count) .. "0"
         table.insert(Recipe.localised_name, { "damage-type-name." .. damage })
-        table.insert(Recipe.icons, This_MOD.indicator)
+        table.insert(Recipe.icons, This_MOD.icon.other)
 
         --- Agregar la receta
         GPrefix.extend(Recipe)
@@ -190,7 +193,7 @@ function This_MOD.create_recipes_all_resistance()
     Recipe.name = Recipe.name .. "all"
     Recipe.order = GPrefix.pad_left_zeros(This_MOD.digit, Count) .. "0"
     table.insert(Recipe.localised_name, { "gui.all" })
-    table.insert(Recipe.icons, This_MOD.indicator)
+    table.insert(Recipe.icons, This_MOD.icon.other)
 
     --- Agregar los ingredientes
     Recipe.ingredients = {}
@@ -233,7 +236,7 @@ function This_MOD.create_armors_one_resistance()
         })
 
         --- Agregar el indicador
-        table.insert(Armor.icons, This_MOD.indicator)
+        table.insert(Armor.icons, This_MOD.icon.other)
 
         --- Crear el prototipo
         GPrefix.extend(Armor)
@@ -265,7 +268,7 @@ function This_MOD.create_armors_all_resistance()
     end
 
     --- Agregar el indicador
-    table.insert(Armor.icons, This_MOD.indicator)
+    table.insert(Armor.icons, This_MOD.icon.other)
 
     --- Crear el prototipo
     GPrefix.extend(Armor)
@@ -303,7 +306,8 @@ function This_MOD.create_tech_one_resistance()
         table.insert(Tech.localised_name, { "damage-type-name." .. damage })
 
         --- Indicador del mod
-        table.insert(Tech.icons, This_MOD.tech_icon)
+        table.insert(Tech.icons, This_MOD.icon.tech_bg)
+        table.insert(Tech.icons, This_MOD.icon.tech)
 
         --- Crear la tecnología
         GPrefix.extend(Tech)
@@ -325,7 +329,8 @@ function This_MOD.create_tech_all_resistance()
     local Tech = util.copy(This_MOD.tech)
 
     --- Indicador del mod
-    table.insert(Tech.icons, This_MOD.tech_icon)
+    table.insert(Tech.icons, This_MOD.icon.tech_bg)
+    table.insert(Tech.icons, This_MOD.icon.tech)
 
     --- Agregar los prerequisitos
     for damage, _ in pairs(This_MOD.damages) do
