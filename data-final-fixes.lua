@@ -32,9 +32,6 @@ function This_MOD.start()
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-    --- Tecnología a duplicar
-    This_MOD.get_technology()
-
     --- Crear las tecnologias
     This_MOD.create_tech_one_resistance()
     This_MOD.create_tech_all_resistance()
@@ -90,7 +87,6 @@ function This_MOD.setting_mod()
 
     This_MOD.recipe = GPrefix.recipes[Item_base.name][1]
     This_MOD.recipe = util.copy(This_MOD.recipe)
-    This_MOD.recipe_name = This_MOD.recipe.name
     This_MOD.recipe.name = This_MOD.prefix .. This_MOD.recipe.name .. "-"
     This_MOD.recipe.localised_description = { "" }
     This_MOD.recipe.results = { {} }
@@ -130,8 +126,24 @@ function This_MOD.setting_mod()
     ---> Indicador de mod
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-    local BackColor = data.raw["virtual-signal"]["signal-heart"].icons[1].icon
-    This_MOD.indicator = { icon = BackColor, scale = 0.15, shift = { 14, -14 } }
+    local Indicator = data.raw["virtual-signal"]["signal-heart"].icons[1].icon
+
+    This_MOD.icon = {}
+    This_MOD.icon.tech = { icon = Indicator, scale = 0.50, shift = { 50, 50 } }
+    This_MOD.icon.tech_bg = { icon = GPrefix.color.black, scale = 0.50, shift = { 50, 50 } }
+    This_MOD.icon.other = { icon = Indicator, scale = 0.15, shift = { 12, -12 } }
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+
+
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+    ---> Tecnología a duplicar
+    --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+    This_MOD.tech = GPrefix.get_technology({ name = GPrefix.recipes[Item_base.name][1].name })
+    This_MOD.tech = util.copy(This_MOD.tech)
+    if This_MOD.tech then This_MOD.tech.effects = {} end
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 end
@@ -155,11 +167,11 @@ function This_MOD.create_recipes_one_resistance()
         local Recipe = util.copy(This_MOD.recipe)
 
         --- Actualizar los valores
-        Recipe.results[1].name = Recipe.name .. Count
-        Recipe.name = Recipe.name .. Count
+        Recipe.results[1].name = Recipe.name .. damage
+        Recipe.name = Recipe.name .. damage
         Recipe.order = GPrefix.pad_left_zeros(This_MOD.digit, Count) .. "0"
         table.insert(Recipe.localised_name, { "damage-type-name." .. damage })
-        table.insert(Recipe.icons, This_MOD.indicator)
+        table.insert(Recipe.icons, This_MOD.icon.other)
 
         --- Agregar la receta
         GPrefix.extend(Recipe)
@@ -177,18 +189,18 @@ function This_MOD.create_recipes_all_resistance()
     local Count = GPrefix.get_length(This_MOD.damages) + 1
 
     --- Actualizar los valores
-    Recipe.results[1].name = Recipe.name .. Count
-    Recipe.name = Recipe.name .. Count
+    Recipe.results[1].name = Recipe.name .. "all"
+    Recipe.name = Recipe.name .. "all"
     Recipe.order = GPrefix.pad_left_zeros(This_MOD.digit, Count) .. "0"
-    table.insert(Recipe.localised_name, { "armor-description." .. This_MOD.prefix .. "all" })
-    table.insert(Recipe.icons, This_MOD.indicator)
+    table.insert(Recipe.localised_name, { "gui.all" })
+    table.insert(Recipe.icons, This_MOD.icon.other)
 
     --- Agregar los ingredientes
     Recipe.ingredients = {}
-    for i = 1, Count - 1, 1 do
+    for damage, _ in pairs(This_MOD.damages) do
         table.insert(Recipe.ingredients, {
             type = "item",
-            name = This_MOD.recipe.name .. i,
+            name = This_MOD.recipe.name .. damage,
             amount = 1
         })
     end
@@ -212,7 +224,7 @@ function This_MOD.create_armors_one_resistance()
         local Armor = util.copy(This_MOD.item)
 
         --- Actualizar los valores
-        Armor.name = Armor.name .. Count
+        Armor.name = Armor.name .. damage
         Armor.order = GPrefix.pad_left_zeros(This_MOD.digit, Count) .. "0"
         table.insert(Armor.localised_name, { "damage-type-name." .. damage })
 
@@ -224,7 +236,7 @@ function This_MOD.create_armors_one_resistance()
         })
 
         --- Agregar el indicador
-        table.insert(Armor.icons, This_MOD.indicator)
+        table.insert(Armor.icons, This_MOD.icon.other)
 
         --- Crear el prototipo
         GPrefix.extend(Armor)
@@ -242,7 +254,7 @@ function This_MOD.create_armors_all_resistance()
     local Count = GPrefix.get_length(This_MOD.damages) + 1
 
     --- Actualizar los valores
-    Armor.name = Armor.name .. Count
+    Armor.name = Armor.name .. "all"
     Armor.order = GPrefix.pad_left_zeros(This_MOD.digit, Count) .. "0"
     table.insert(Armor.localised_name, { "gui-blueprint-library.shelf-choice-all" })
 
@@ -256,7 +268,7 @@ function This_MOD.create_armors_all_resistance()
     end
 
     --- Agregar el indicador
-    table.insert(Armor.icons, This_MOD.indicator)
+    table.insert(Armor.icons, This_MOD.icon.other)
 
     --- Crear el prototipo
     GPrefix.extend(Armor)
@@ -265,15 +277,6 @@ function This_MOD.create_armors_all_resistance()
 end
 
 ---------------------------------------------------------------------------------------------------
-
---- Tecnología a duplicar
-function This_MOD.get_technology()
-    This_MOD.tech = GPrefix.get_technology({ name = This_MOD.recipe_name })
-    if not This_MOD.tech then return end
-    This_MOD.tech = util.copy(This_MOD.tech)
-    This_MOD.tech.prerequisites = {}
-    This_MOD.tech.effects = {}
-end
 
 --- Crear la tecnología para una inmunidad
 function This_MOD.create_tech_one_resistance()
@@ -285,21 +288,26 @@ function This_MOD.create_tech_one_resistance()
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
     --- Recorrer los daños
-    local Count = 1
     for damage, _ in pairs(This_MOD.damages) do
         --- Duplicar la tecnología
         local Tech = util.copy(This_MOD.tech)
         table.insert(Tech.prerequisites, Tech.name)
         table.insert(Tech.effects, {
             type = "unlock-recipe",
-            recipe = This_MOD.recipe.name .. Count
+            recipe = This_MOD.recipe.name .. damage
         })
-        Tech.name = GPrefix.name .. "-" .. Count .. "-" .. Tech.name
-        Count = Count + 1
+        Tech.name =
+            GPrefix.name .. "-" ..
+            damage .. "-" ..
+            Tech.name
 
         --- Daño a absorber
         table.insert(Tech.localised_name, " - ")
         table.insert(Tech.localised_name, { "damage-type-name." .. damage })
+
+        --- Indicador del mod
+        table.insert(Tech.icons, This_MOD.icon.tech_bg)
+        table.insert(Tech.icons, This_MOD.icon.tech)
 
         --- Crear la tecnología
         GPrefix.extend(Tech)
@@ -320,27 +328,31 @@ function This_MOD.create_tech_all_resistance()
     --- Duplicar la tecnología
     local Tech = util.copy(This_MOD.tech)
 
+    --- Indicador del mod
+    table.insert(Tech.icons, This_MOD.icon.tech_bg)
+    table.insert(Tech.icons, This_MOD.icon.tech)
+
     --- Agregar los prerequisitos
-    local Count = 1
-    for _, _ in pairs(This_MOD.damages) do
+    for damage, _ in pairs(This_MOD.damages) do
         table.insert(
             Tech.prerequisites,
-            GPrefix.name .. "-" .. Count .. "-" .. This_MOD.tech.name
+            GPrefix.name .. "-" ..
+            damage .. "-" ..
+            This_MOD.tech.name
         )
-        Count = Count + 1
     end
 
     --- Nombre de la tecnología
-    Tech.name = GPrefix.name .. "-" .. Count .. "-" .. Tech.name
+    Tech.name = GPrefix.name .. "-all-" .. Tech.name
 
     --- Daño a absorber
     table.insert(Tech.localised_name, " - ")
-    table.insert(Tech.localised_name, { "armor-description." .. This_MOD.prefix .. "all" })
+    table.insert(Tech.localised_name, { "gui.all" })
 
     --- Agregar la receta
     table.insert(Tech.effects, {
         type = "unlock-recipe",
-        recipe = This_MOD.recipe.name .. Count
+        recipe = This_MOD.recipe.name .. "all"
     })
 
     --- Crear la tecnología
