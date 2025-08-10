@@ -89,10 +89,9 @@ function This_MOD.setting_mod()
     This_MOD.recipe = util.copy(This_MOD.recipe)
     This_MOD.recipe.name = This_MOD.prefix .. This_MOD.recipe.name .. "-"
     This_MOD.recipe.localised_description = { "" }
-    This_MOD.recipe.results = { {} }
-    This_MOD.recipe.results[1].type = "item"
-    This_MOD.recipe.results[1].name = This_MOD.item.name
-    This_MOD.recipe.results[1].amount = 1
+    This_MOD.recipe.energy_required = 15 * 60
+    This_MOD.recipe.results = { { type = "item", name = This_MOD.item.name, amount = 1 } }
+    This_MOD.recipe.ingredients = { { type = "item", name = Item_base.name, amount = 1 } }
     This_MOD.recipe.subgroup = New_subgroup
     This_MOD.recipe.icons = util.copy(This_MOD.item.icons)
     table.insert(This_MOD.recipe.localised_name, " - ")
@@ -304,16 +303,12 @@ function This_MOD.create_tech_one_resistance()
     --- Recorrer los daños
     for damage, _ in pairs(This_MOD.damages) do
         --- Duplicar la tecnología
-        local Tech = util.copy(This_MOD.tech)
-        table.insert(Tech.prerequisites, Tech.name)
-        table.insert(Tech.effects, {
-            type = "unlock-recipe",
-            recipe = This_MOD.recipe.name .. damage
-        })
-        Tech.name =
-            GPrefix.name .. "-" ..
-            damage .. "-" ..
-            Tech.name
+        local Tech = GPrefix.create_tech(
+            This_MOD.prefix,
+            This_MOD.tech,
+            data.raw.recipe[This_MOD.recipe.name .. damage],
+            This_MOD.prefix .. GPrefix.delete_prefix(This_MOD.tech.name) .. "-" .. damage
+        )
 
         --- Daño a absorber
         table.insert(Tech.localised_name, " - ")
@@ -322,9 +317,6 @@ function This_MOD.create_tech_one_resistance()
         --- Indicador del mod
         table.insert(Tech.icons, This_MOD.icon.tech_bg)
         table.insert(Tech.icons, This_MOD.icon.tech)
-
-        --- Crear la tecnología
-        GPrefix.extend(Tech)
     end
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -340,37 +332,31 @@ function This_MOD.create_tech_all_resistance()
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
     --- Duplicar la tecnología
-    local Tech = util.copy(This_MOD.tech)
-
-    --- Indicador del mod
-    table.insert(Tech.icons, This_MOD.icon.tech_bg)
-    table.insert(Tech.icons, This_MOD.icon.tech)
+    local Tech = GPrefix.create_tech(
+        This_MOD.prefix,
+        This_MOD.tech,
+        data.raw.recipe[This_MOD.recipe.name .. "all"],
+        This_MOD.prefix .. GPrefix.delete_prefix(This_MOD.tech.name) .. "-all"
+    )
 
     --- Agregar los prerequisitos
+    Tech.prerequisites = {}
     for damage, _ in pairs(This_MOD.damages) do
         table.insert(
             Tech.prerequisites,
-            GPrefix.name .. "-" ..
-            damage .. "-" ..
-            This_MOD.tech.name
+            This_MOD.prefix ..
+            GPrefix.delete_prefix(This_MOD.tech.name) .. "-" ..
+            damage
         )
     end
-
-    --- Nombre de la tecnología
-    Tech.name = GPrefix.name .. "-all-" .. Tech.name
 
     --- Daño a absorber
     table.insert(Tech.localised_name, " - ")
     table.insert(Tech.localised_name, { "gui.all" })
 
-    --- Agregar la receta
-    table.insert(Tech.effects, {
-        type = "unlock-recipe",
-        recipe = This_MOD.recipe.name .. "all"
-    })
-
-    --- Crear la tecnología
-    GPrefix.extend(Tech)
+    --- Indicador del mod
+    table.insert(Tech.icons, This_MOD.icon.tech_bg)
+    table.insert(Tech.icons, This_MOD.icon.tech)
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 end
