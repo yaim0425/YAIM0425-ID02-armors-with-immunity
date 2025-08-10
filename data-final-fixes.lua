@@ -227,6 +227,13 @@ function This_MOD.create_armors_one_resistance()
         Armor.name = Armor.name .. damage
         Armor.order = GPrefix.pad_left_zeros(This_MOD.digit, Count) .. "0"
         table.insert(Armor.localised_name, { "damage-type-name." .. damage })
+        Armor.factoriopedia_simulation = {
+            init =
+                'game.simulation.camera_zoom = 4' ..
+                'game.simulation.camera_position = {0.5, -0.25}' ..
+                'local character = game.surfaces[1].create_entity{name = "character", position = {0.5, 0.5}, force = "player", direction = defines.direction.south}' ..
+                'character.insert{name = "' .. Armor.name .. '"}'
+        }
 
         --- Agregar la inmunidad
         table.insert(Armor.resistances, {
@@ -257,6 +264,13 @@ function This_MOD.create_armors_all_resistance()
     Armor.name = Armor.name .. "all"
     Armor.order = GPrefix.pad_left_zeros(This_MOD.digit, Count) .. "0"
     table.insert(Armor.localised_name, { "gui-blueprint-library.shelf-choice-all" })
+    Armor.factoriopedia_simulation = {
+        init =
+            'game.simulation.camera_zoom = 4' ..
+            'game.simulation.camera_position = {0.5, -0.25}' ..
+            'local character = game.surfaces[1].create_entity{name = "character", position = {0.5, 0.5}, force = "player", direction = defines.direction.south}' ..
+            'character.insert{name = "' .. Armor.name .. '"}'
+    }
 
     --- Agregar la inmunidad
     for damage, _ in pairs(This_MOD.damages) do
