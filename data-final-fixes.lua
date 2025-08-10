@@ -122,16 +122,15 @@ function This_MOD.setting_mod()
 
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-    ---> Indicadores del MOD
+    ---> Indicador de mod
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
     local Indicator = data.raw["virtual-signal"]["signal-heart"].icons[1].icon
 
-    This_MOD.icon = {
-        tech = { icon = Indicator, scale = 0.50, shift = { 50, 50 } },
-        tech_bg = { icon = GPrefix.color.black, scale = 0.50, shift = { 50, 50 } },
-        other = { icon = Indicator, scale = 0.15, shift = { 12, -12 } }
-    }
+    This_MOD.icon = {}
+    This_MOD.icon.tech = { icon = Indicator, scale = 0.50, shift = { 50, 50 } }
+    This_MOD.icon.tech_bg = { icon = GPrefix.color.black, scale = 0.50, shift = { 50, 50 } }
+    This_MOD.icon.other = { icon = Indicator, scale = 0.15, shift = { 12, -12 } }
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
