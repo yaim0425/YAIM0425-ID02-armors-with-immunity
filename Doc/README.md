@@ -36,13 +36,13 @@ Proporcionar **protección específica contra tipos de daño** y opciones de **i
 
 ## 🖼️ Capturas
 
-![](https://github.com/yaim0425/zzzYAIM0425-0200-armors-with-immunity/raw/main/Doc/base/Screenshot%20(1).png)  
-![](https://github.com/yaim0425/zzzYAIM0425-0200-armors-with-immunity/raw/main/Doc/base/Screenshot%20(2).png)  
-![](https://github.com/yaim0425/zzzYAIM0425-0200-armors-with-immunity/raw/main/Doc/base/Screenshot%20(3).png)  
-![](https://github.com/yaim0425/zzzYAIM0425-0200-armors-with-immunity/raw/main/Doc/base/Screenshot%20(4).png)  
-![](https://github.com/yaim0425/zzzYAIM0425-0200-armors-with-immunity/raw/main/Doc/base/Screenshot%20(5).png)  
-![](https://github.com/yaim0425/zzzYAIM0425-0200-armors-with-immunity/raw/main/Doc/base/Screenshot%20(6).png)  
-![](https://github.com/yaim0425/zzzYAIM0425-0200-armors-with-immunity/raw/main/Doc/base/Screenshot%20(7).png)  
-![](https://github.com/yaim0425/zzzYAIM0425-0200-armors-with-immunity/raw/main/Doc/base/Screenshot%20(8).png)  
-![](https://github.com/yaim0425/zzzYAIM0425-0200-armors-with-immunity/raw/main/Doc/base/Screenshot%20(9).png)  
-![](https://github.com/yaim0425/zzzYAIM0425-0200-armors-with-immunity/raw/main/Doc/base/Screenshot%20(10).png)
+![](https://github.com/yaim0425/zzzYAIM0425-0200-armors-with-immunity/raw/main/Doc/base/(1).png)  
+![](https://github.com/yaim0425/zzzYAIM0425-0200-armors-with-immunity/raw/main/Doc/base/(2).png)  
+![](https://github.com/yaim0425/zzzYAIM0425-0200-armors-with-immunity/raw/main/Doc/base/(3).png)  
+![](https://github.com/yaim0425/zzzYAIM0425-0200-armors-with-immunity/raw/main/Doc/base/(4).png)  
+![](https://github.com/yaim0425/zzzYAIM0425-0200-armors-with-immunity/raw/main/Doc/base/(5).png)  
+![](https://github.com/yaim0425/zzzYAIM0425-0200-armors-with-immunity/raw/main/Doc/base/(6).png)  
+![](https://github.com/yaim0425/zzzYAIM0425-0200-armors-with-immunity/raw/main/Doc/base/(7).png)  
+![](https://github.com/yaim0425/zzzYAIM0425-0200-armors-with-immunity/raw/main/Doc/base/(8).png)  
+![](https://github.com/yaim0425/zzzYAIM0425-0200-armors-with-immunity/raw/main/Doc/base/(9).png)  
+![](https://github.com/yaim0425/zzzYAIM0425-0200-armors-with-immunity/raw/main/Doc/base/(10).png)
