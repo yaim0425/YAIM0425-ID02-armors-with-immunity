@@ -26,11 +26,21 @@ local settings = {
         "heavy-armor",
         "modular-armor",
         "power-armor",
-        "power-armor-mk2",
+        "power-armor-mk2"
     }
 }
 
--- Krastorio 2
+---------------------------------------------------------------------------------------------------
+
+--- Factorio+
+if mods["factorioplus"] then
+    table.insert(settings.allowed_values, "backpack")
+    table.insert(settings.allowed_values, "backpack-2")
+    table.insert(settings.allowed_values, "explosive-armor")
+    table.insert(settings.allowed_values, "acid-armor")
+end
+
+--- Krastorio 2
 if mods["Krastorio2"] then
     table.insert(settings.allowed_values, "kr-power-armor-mk3")
     table.insert(settings.allowed_values, "kr-power-armor-mk4")
@@ -45,7 +55,7 @@ if mods["Yuoki"] then
     table.insert(settings.allowed_values, "yi_walker_c")
 end
 
---- Space Ag
+--- Space Age
 if mods["space-age"] then
     table.insert(settings.allowed_values, "mech-armor")
 end
