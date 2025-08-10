@@ -1,0 +1,6 @@
+![](https://github.com/yaim0425/zzzYAIM0425-0100-sort-items/raw/main/Doc/factorioplus/Screenshot%20(1).png)  
+![](https://github.com/yaim0425/zzzYAIM0425-0100-sort-items/raw/main/Doc/factorioplus/Screenshot%20(2).png)  
+![](https://github.com/yaim0425/zzzYAIM0425-0100-sort-items/raw/main/Doc/factorioplus/Screenshot%20(3).png)  
+![](https://github.com/yaim0425/zzzYAIM0425-0100-sort-items/raw/main/Doc/factorioplus/Screenshot%20(4).png)  
+![](https://github.com/yaim0425/zzzYAIM0425-0100-sort-items/raw/main/Doc/factorioplus/Screenshot%20(5).png)  
+![](https://github.com/yaim0425/zzzYAIM0425-0100-sort-items/raw/main/Doc/factorioplus/Screenshot%20(6).png)  
