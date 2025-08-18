@@ -46,7 +46,7 @@ function This_MOD.setting_mod()
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
     local Default = "light-armor"
-    local Setting = GPrefix.setting[This_MOD.id]["armor-base"]
+    local Setting = GPrefix.setting[This_MOD.id]["armor_base"]
     local Item_base = GPrefix.items[Setting] or GPrefix.items[Default]
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
