@@ -308,7 +308,12 @@ function This_MOD.create_tech_one_resistance()
             This_MOD.prefix,
             This_MOD.tech,
             data.raw.recipe[This_MOD.recipe.name .. damage],
-            This_MOD.prefix .. GPrefix.delete_prefix(This_MOD.tech.name) .. "-" .. damage
+            {
+                name =
+                    This_MOD.prefix ..
+                    GPrefix.delete_prefix(This_MOD.tech.name) .. "-" ..
+                    damage
+            }
         )
 
         --- Daño a absorber
@@ -332,24 +337,32 @@ function This_MOD.create_tech_all_resistance()
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-    --- Duplicar la tecnología
-    local Tech = GPrefix.create_tech(
-        This_MOD.prefix,
-        This_MOD.tech,
-        data.raw.recipe[This_MOD.recipe.name .. "all"],
-        This_MOD.prefix .. GPrefix.delete_prefix(This_MOD.tech.name) .. "-all"
-    )
+    --- Valores a remplazar
+    local Info = {
+        name =
+            This_MOD.prefix ..
+            GPrefix.delete_prefix(This_MOD.tech.name) ..
+            "-all",
+    }
 
     --- Agregar los prerequisitos
-    Tech.prerequisites = {}
+    Info.prerequisites = {}
     for damage, _ in pairs(This_MOD.damages) do
         table.insert(
-            Tech.prerequisites,
+            Info.prerequisites,
             This_MOD.prefix ..
             GPrefix.delete_prefix(This_MOD.tech.name) .. "-" ..
             damage
         )
     end
+
+    --- Duplicar la tecnología
+    local Tech = GPrefix.create_tech(
+        This_MOD.prefix,
+        This_MOD.tech,
+        data.raw.recipe[This_MOD.recipe.name .. "all"],
+        Info
+    )
 
     --- Daño a absorber
     table.insert(Tech.localised_name, " - ")
