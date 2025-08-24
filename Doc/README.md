@@ -46,3 +46,4 @@ Proporcionar **protección específica contra tipos de daño** y opciones de **i
 ![](https://github.com/yaim0425/zzzYAIM0425-0200-armors-with-immunity/raw/main/Doc/base/(8).png)  
 ![](https://github.com/yaim0425/zzzYAIM0425-0200-armors-with-immunity/raw/main/Doc/base/(9).png)  
 ![](https://github.com/yaim0425/zzzYAIM0425-0200-armors-with-immunity/raw/main/Doc/base/(10).png)
+![](https://github.com/yaim0425/zzzYAIM0425-0200-armors-with-immunity/raw/main/Doc/base/(11).png)
