@@ -46,7 +46,7 @@ function This_MOD.setting_mod()
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
     local Default = "light-armor"
-    local Setting = GPrefix.setting[This_MOD.id]["armor-base"]
+    local Setting = GPrefix.setting[This_MOD.id]["armor_base"]
     local Item_base = GPrefix.items[Setting] or GPrefix.items[Default]
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -70,7 +70,7 @@ function This_MOD.setting_mod()
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
     This_MOD.item = GPrefix.items[Item_base.name]
-    This_MOD.item = util.copy(This_MOD.item)
+    This_MOD.item = GPrefix.copy(This_MOD.item)
     This_MOD.item.name = This_MOD.prefix .. This_MOD.item.name .. "-"
     This_MOD.item.localised_description = { "" }
     This_MOD.item.resistances = {}
@@ -86,14 +86,14 @@ function This_MOD.setting_mod()
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
     This_MOD.recipe = GPrefix.recipes[Item_base.name][1]
-    This_MOD.recipe = util.copy(This_MOD.recipe)
+    This_MOD.recipe = GPrefix.copy(This_MOD.recipe)
     This_MOD.recipe.name = This_MOD.prefix .. This_MOD.recipe.name .. "-"
     This_MOD.recipe.localised_description = { "" }
     This_MOD.recipe.energy_required = 15 * 60
     This_MOD.recipe.results = { { type = "item", name = This_MOD.item.name, amount = 1 } }
     This_MOD.recipe.ingredients = { { type = "item", name = Item_base.name, amount = 1 } }
     This_MOD.recipe.subgroup = New_subgroup
-    This_MOD.recipe.icons = util.copy(This_MOD.item.icons)
+    This_MOD.recipe.icons = GPrefix.copy(This_MOD.item.icons)
     table.insert(This_MOD.recipe.localised_name, " - ")
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -142,7 +142,7 @@ function This_MOD.setting_mod()
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
     This_MOD.tech = GPrefix.get_technology({ name = GPrefix.recipes[Item_base.name][1].name })
-    This_MOD.tech = util.copy(This_MOD.tech)
+    This_MOD.tech = GPrefix.copy(This_MOD.tech)
     if This_MOD.tech then This_MOD.tech.effects = {} end
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -164,7 +164,7 @@ function This_MOD.create_recipes_one_resistance()
     for damage, _ in pairs(This_MOD.damages) do
         --- Nueva receta
         Count = Count + 1
-        local Recipe = util.copy(This_MOD.recipe)
+        local Recipe = GPrefix.copy(This_MOD.recipe)
 
         --- Actualizar los valores
         Recipe.results[1].name = Recipe.name .. damage
@@ -185,7 +185,7 @@ function This_MOD.create_recipes_all_resistance()
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
     --- Nueva receta
-    local Recipe = util.copy(This_MOD.recipe)
+    local Recipe = GPrefix.copy(This_MOD.recipe)
     local Count = GPrefix.get_length(This_MOD.damages) + 1
 
     --- Actualizar los valores
@@ -221,7 +221,7 @@ function This_MOD.create_armors_one_resistance()
     for damage, _ in pairs(This_MOD.damages) do
         --- Nueva armadura
         Count = Count + 1
-        local Armor = util.copy(This_MOD.item)
+        local Armor = GPrefix.copy(This_MOD.item)
 
         --- Actualizar los valores
         Armor.name = Armor.name .. damage
@@ -257,7 +257,7 @@ function This_MOD.create_armors_all_resistance()
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
     --- Nueva armadura
-    local Armor = util.copy(This_MOD.item)
+    local Armor = GPrefix.copy(This_MOD.item)
     local Count = GPrefix.get_length(This_MOD.damages) + 1
 
     --- Actualizar los valores
@@ -308,7 +308,12 @@ function This_MOD.create_tech_one_resistance()
             This_MOD.prefix,
             This_MOD.tech,
             data.raw.recipe[This_MOD.recipe.name .. damage],
-            This_MOD.prefix .. GPrefix.delete_prefix(This_MOD.tech.name) .. "-" .. damage
+            {
+                name =
+                    This_MOD.prefix ..
+                    GPrefix.delete_prefix(This_MOD.tech.name) .. "-" ..
+                    damage
+            }
         )
 
         --- Daño a absorber
@@ -332,24 +337,32 @@ function This_MOD.create_tech_all_resistance()
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-    --- Duplicar la tecnología
-    local Tech = GPrefix.create_tech(
-        This_MOD.prefix,
-        This_MOD.tech,
-        data.raw.recipe[This_MOD.recipe.name .. "all"],
-        This_MOD.prefix .. GPrefix.delete_prefix(This_MOD.tech.name) .. "-all"
-    )
+    --- Valores a remplazar
+    local Info = {
+        name =
+            This_MOD.prefix ..
+            GPrefix.delete_prefix(This_MOD.tech.name) ..
+            "-all",
+    }
 
     --- Agregar los prerequisitos
-    Tech.prerequisites = {}
+    Info.prerequisites = {}
     for damage, _ in pairs(This_MOD.damages) do
         table.insert(
-            Tech.prerequisites,
+            Info.prerequisites,
             This_MOD.prefix ..
             GPrefix.delete_prefix(This_MOD.tech.name) .. "-" ..
             damage
         )
     end
+
+    --- Duplicar la tecnología
+    local Tech = GPrefix.create_tech(
+        This_MOD.prefix,
+        This_MOD.tech,
+        data.raw.recipe[This_MOD.recipe.name .. "all"],
+        Info
+    )
 
     --- Daño a absorber
     table.insert(Tech.localised_name, " - ")
