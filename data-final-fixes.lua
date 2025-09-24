@@ -136,13 +136,10 @@ function This_MOD.get_elements()
     --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
     --- Tipos de daños a usar
-    This_MOD.damages = (function()
-        local Damages = {}
-        for damage, _ in pairs(data.raw["damage-type"]) do
-            table.insert(Damages, damage)
-        end
-        return Damages
-    end)()
+    This_MOD.damages = {}
+    for damage, _ in pairs(data.raw["damage-type"]) do
+        table.insert(This_MOD.damages, damage)
+    end
 
     --- Cantidad de digitod
     This_MOD.digits = GMOD.digit_count(#This_MOD.damages) + 1
@@ -157,7 +154,7 @@ function This_MOD.get_elements()
     --- Función para analizar cada elemento
     --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-    local function valide_armor(item)
+    local function validate_armor(item)
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
         --- Validación
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -178,9 +175,9 @@ function This_MOD.get_elements()
             This_MOD.id .. "-" ..
             That_MOD.name .. "-"
 
-        local Processed = true
+        local Processed
         for _, damage in pairs(This_MOD.damages) do
-            Processed = Processed and GMOD.items[Name .. damage] ~= nil
+            Processed = GMOD.items[Name .. damage] ~= nil
             if not Processed then break end
         end
         if Processed then return end
@@ -229,7 +226,7 @@ function This_MOD.get_elements()
     --- Preparar los datos a usar
     --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-    valide_armor(GMOD.items[This_MOD.setting.armor_base])
+    validate_armor(GMOD.items[This_MOD.setting.armor_base])
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 end
@@ -407,11 +404,7 @@ function This_MOD.create_item(space)
         --- Validación
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-        for _, resistance in pairs(Item.resistances) do
-            if resistance.type == damage then
-                return
-            end
-        end
+        if GMOD.get_tables(Item.resistances, "type", damage) then return end
 
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -516,7 +509,7 @@ function This_MOD.create_recipe(space)
         Recipe.localised_description = { "" }
 
         --- Tiempo de fabricación
-        Recipe.energy_required = 3 * (Recipe.energy_required or 0.5)
+        Recipe.energy_required = 3 * Recipe.energy_required
 
         --- Elimnar propiedades inecesarias
         Recipe.main_product = nil
@@ -605,11 +598,7 @@ function This_MOD.create_recipe(space)
         --- Validación
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-        for _, ingredient in pairs(Recipe.ingredients) do
-            if ingredient.name == space.name .. damage then
-                return
-            end
-        end
+        if GMOD.get_tables(Recipe.ingredients, "name", space.name .. damage) then return end
 
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -673,7 +662,7 @@ function This_MOD.create_tech(space)
         --- Nombre a usar
         local Name = space.name .. (damage or "all") .. "-tech"
 
-        --- Tech creada 
+        --- Tech creada
         if data.raw.technology[Name] then return end
 
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -792,11 +781,7 @@ function This_MOD.create_tech(space)
         --- Validación
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-        for _, prerequisite in pairs(Tech.prerequisites) do
-            if prerequisite == space.name .. damage .. "-tech" then
-                return
-            end
-        end
+        if GMOD.get_key(Tech.prerequisites, space.name .. damage .. "-tech") then return end
 
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
