@@ -406,7 +406,15 @@ function This_MOD.create_item(space)
         --- Validación
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-        if GMOD.get_tables(Item.resistances, "type", damage) then return end
+        if
+            GMOD.get_tables(
+                Item.resistances,
+                "type",
+                damage
+            )
+        then
+            return
+        end
 
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -418,7 +426,10 @@ function This_MOD.create_item(space)
         --- Agregar la resistencia
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-        table.insert(Item.resistances, { type = damage, percent = 100 })
+        table.insert(Item.resistances, {
+            type = damage,
+            percent = 100
+        })
 
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     end
@@ -600,7 +611,15 @@ function This_MOD.create_recipe(space)
         --- Validación
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-        if GMOD.get_tables(Recipe.ingredients, "name", space.name .. damage) then return end
+        if
+            GMOD.get_tables(
+                Recipe.ingredients,
+                "name",
+                space.name .. damage
+            )
+        then
+            return
+        end
 
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -677,7 +696,7 @@ function This_MOD.create_tech(space)
         --- Duplicar el elemento
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-        Tech = GMOD.copy(space.tech)
+        local Tech = GMOD.copy(space.tech)
 
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -783,7 +802,14 @@ function This_MOD.create_tech(space)
         --- Validación
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-        if GMOD.get_key(Tech.prerequisites, space.name .. damage .. "-tech") then return end
+        if
+            GMOD.get_key(
+                Tech.prerequisites,
+                space.name .. damage .. "-tech"
+            )
+        then
+            return
+        end
 
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
