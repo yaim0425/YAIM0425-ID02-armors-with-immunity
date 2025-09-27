@@ -526,7 +526,7 @@ function This_MOD.create_recipe(space)
         table.insert(Recipe.icons, This_MOD.indicator_bg)
         table.insert(Recipe.icons, This_MOD.indicator)
 
-        --- Habilitar la receta
+        --- Receta desbloqueada por tecnología
         Recipe.enabled = space.tech == nil
 
         --- Subgrupo y Order
