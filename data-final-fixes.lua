@@ -104,22 +104,6 @@ function This_MOD.setting_mod()
     This_MOD.indicator_tech_bg = { icon = GMOD.color.black, scale = 0.50, shift = { 50, -50 } }
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-
-
-
-
-
-    --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-    --- Valores de la referencia en este MOD
-    --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-
-    --- Daños a procesar
-    This_MOD.damages = {}
-
-    --- Digitos necesarios para ordenar
-    This_MOD.digits = 0
-
-    --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 end
 
 ---------------------------------------------------------------------------
