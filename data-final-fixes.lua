@@ -47,7 +47,7 @@ function This_MOD.start()
             --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
         end
     end
-
+ERROR()
     --- Recorrer los MODs activados
     if GMOD.MODs[#GMOD.MODs] == This_MOD then
         for _, That_MOD in pairs(GMOD.MODs) do
@@ -273,11 +273,11 @@ function This_MOD.create_item(space)
         --- Order a usar
         local Order =
             GMOD.pad_left_zeros(
-                space.digits,
-                space.order + (i or #This_MOD.damages + 1)
+                This_MOD.digits,
+                i or #This_MOD.damages + 1
             ) .. "0"
 
-        --- Renombrar
+            --- Renombrar
         local Item = GMOD.items[Name]
 
         --- Existe
@@ -457,8 +457,8 @@ function This_MOD.create_recipe(space)
         --- Order a usar
         local Order =
             GMOD.pad_left_zeros(
-                space.digits,
-                space.order + (i or #This_MOD.damages + 1)
+                This_MOD.digits,
+                i or #This_MOD.damages + 1
             ) .. "0"
 
         --- Renombrar
