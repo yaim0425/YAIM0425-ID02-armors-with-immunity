@@ -183,7 +183,14 @@ function This_MOD.get_elements()
         Space.tech = GMOD.get_technology(Space.recipe)
         Space.recipe = Space.recipe and Space.recipe[1] or nil
 
-        Space.subgroup = string.sub(Name, 1, -2)
+        Space.subgroup =
+            GMOD.name ..
+            (
+                GMOD.get_id_and_name(Space.item.subgroup) or
+                { ids = "-" }
+            ).ids ..
+            This_MOD.id .. "-" ..
+            That_MOD.name
 
         Space.digits = 1 + GMOD.digit_count(#This_MOD.damages + 1)
 
