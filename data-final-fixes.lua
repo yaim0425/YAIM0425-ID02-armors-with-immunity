@@ -186,6 +186,8 @@ function This_MOD.get_elements()
         Space.tech = GMOD.get_technology(Space.recipe)
         Space.recipe = Space.recipe and Space.recipe[1] or nil
 
+        Space.subgroup = string.sub(Name, 1, -2)
+
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 
@@ -237,7 +239,7 @@ function This_MOD.create_subgroup(space)
     --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
     local Old = space.item.subgroup
-    local New = string.sub(space.name, 1, -2)
+    local New = space.subgroup
     GMOD.duplicate_subgroup(Old, New)
 
     --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -320,8 +322,8 @@ function This_MOD.create_item(space)
         Item.localised_description = { "" }
 
         --- Subgrupo y Order
-        Item.subgroup = string.sub(space.name, 1, -2)
-        Item.order = GMOD.pad_left_zeros(This_MOD.digits, i) .. "0"
+        Item.subgroup = space.subgroup
+        Item.order = Order
 
         --- Agregar indicador del MOD
         table.insert(Item.icons, This_MOD.indicator_bg)
@@ -343,7 +345,7 @@ function This_MOD.create_item(space)
                 'game.simulation.camera_zoom = 4' ..
                 'game.simulation.camera_position = {0.5, -0.25}' ..
                 'local character = game.surfaces[1].create_entity{name = "character", position = {0.5, 0.5}, force = "player", direction = defines.direction.south}' ..
-                'character.insert{name = "' .. Item.name .. '"}'
+                'character.insert{name = "' .. Name .. '"}'
         }
 
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -522,7 +524,7 @@ function This_MOD.create_recipe(space)
         Recipe.enabled = space.tech == nil
 
         --- Subgrupo y Order
-        Recipe.subgroup = string.sub(space.name, 1, -2)
+        Recipe.subgroup = space.subgroup
         Recipe.order = Order
 
         --- Ingredientes
