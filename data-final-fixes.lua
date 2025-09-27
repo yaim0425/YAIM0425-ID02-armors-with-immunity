@@ -651,8 +651,13 @@ function This_MOD.create_tech(space)
         --- Nombre a usar
         local Name = space.name .. (damage or "all") .. "-tech"
 
-        --- Tech creada
-        if data.raw.technology[Name] then return end
+        --- Renombrar
+        local Tech = data.raw.technology[Name]
+
+        --- Existe
+        if Tech then
+            return Tech
+        end
 
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -664,9 +669,9 @@ function This_MOD.create_tech(space)
         --- Duplicar el elemento
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-        local Tech = GMOD.copy(space.tech)
+        Tech = GMOD.copy(space.tech)
 
-        --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+        --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 
 
@@ -730,6 +735,7 @@ function This_MOD.create_tech(space)
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
         GMOD.extend(Tech)
+        return Tech
 
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     end
@@ -749,27 +755,10 @@ function This_MOD.create_tech(space)
         --- Validar si se creó "all"
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-        --- Nombre a usar
-        local Name = space.name .. "all-tech"
+        --- Cargar o crear de ser necesario
+        local Tech = one()
 
-        --- Crear la receta para la armadura
-        if not data.raw.technology[Name] then
-            one()
-        end
-
-        --- Renombrar
-        local Tech = data.raw.technology[Name]
-
-        --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-
-
-
-
-
-        --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-        --- Validación
-        --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-
+        --- Tiene el valor a agregar
         if
             GMOD.get_key(
                 Tech.prerequisites,
