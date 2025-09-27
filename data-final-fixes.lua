@@ -268,13 +268,20 @@ function This_MOD.create_item(space)
         --- Nombre a usar
         local Name = space.name .. (damage or "all")
 
+        --- Order a usar
+        local Order =
+            GMOD.pad_left_zeros(
+                space.digits,
+                space.order + (i or #This_MOD.damages + 1)
+            ) .. "0"
+
         --- Renombrar
         local Item = GMOD.items[Name]
 
-        --- Actualizar order
+        --- Existe
         if Item then
-            Item.order = GMOD.pad_left_zeros(This_MOD.digits, i) .. "0"
-            return
+            Item.order = Order
+            return Item
         end
 
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -350,6 +357,7 @@ function This_MOD.create_item(space)
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
         GMOD.extend(Item)
+        return Item
 
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     end
@@ -366,30 +374,13 @@ function This_MOD.create_item(space)
 
     local function all(damage)
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-        --- Validar si se creó "all"
-        --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-
-        --- Nombre a usar
-        local Name = space.name .. "all"
-
-        --- Crear la armadura
-        if not GMOD.items[Name] then
-            one(#This_MOD.damages + 1)
-        end
-
-        --- Renombrar
-        local Item = GMOD.items[Name]
-
-        --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-
-
-
-
-
-        --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
         --- Validación
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
+        --- Cargar o crear de ser necesario
+        local Item = one()
+
+        --- Tiene el valor a agregar
         if
             GMOD.get_tables(
                 Item.resistances,
