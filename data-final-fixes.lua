@@ -47,7 +47,7 @@ function This_MOD.start()
             --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
         end
     end
-ERROR()
+
     --- Recorrer los MODs activados
     if GMOD.MODs[#GMOD.MODs] == This_MOD then
         for _, That_MOD in pairs(GMOD.MODs) do
