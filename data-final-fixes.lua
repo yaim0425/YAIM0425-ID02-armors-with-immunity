@@ -149,6 +149,8 @@ function This_MOD.get_elements()
         if item.type ~= "armor" then return end
 
         --- Validar si ya fue procesado
+        if GMOD.has_id(item.name, This_MOD.id) then return end
+
         local That_MOD =
             GMOD.get_id_and_name(item.name) or
             { ids = "-", name = item.name }
@@ -164,7 +166,6 @@ function This_MOD.get_elements()
             if not Processed then break end
         end
         if Processed then return end
-        if GMOD.has_id(item.name, This_MOD.id) then return end
 
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
