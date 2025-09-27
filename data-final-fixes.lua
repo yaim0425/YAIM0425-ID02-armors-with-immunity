@@ -452,13 +452,20 @@ function This_MOD.create_recipe(space)
         --- Nombre a usar
         local Name = space.name .. (damage or "all")
 
+        --- Order a usar
+        local Order =
+            GMOD.pad_left_zeros(
+                space.digits,
+                space.order + (i or #This_MOD.damages + 1)
+            ) .. "0"
+
         --- Renombrar
         local Recipe = data.raw.recipe[Name]
 
-        --- Actualizar order
+        --- Existe
         if Recipe then
-            Recipe.order = GMOD.pad_left_zeros(This_MOD.digits, i) .. "0"
-            return
+            Recipe.order = Order
+            return Recipe
         end
 
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -516,7 +523,7 @@ function This_MOD.create_recipe(space)
 
         --- Subgrupo y Order
         Recipe.subgroup = string.sub(space.name, 1, -2)
-        Recipe.order = GMOD.pad_left_zeros(This_MOD.digits, i) .. "0"
+        Recipe.order = Order
 
         --- Ingredientes
         Recipe.ingredients = {}
@@ -531,7 +538,7 @@ function This_MOD.create_recipe(space)
         --- Resultados
         Recipe.results = { {
             type = "item",
-            name = Recipe.name,
+            name = Name,
             amount = 1
         } }
 
@@ -546,6 +553,7 @@ function This_MOD.create_recipe(space)
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
         GMOD.extend(Recipe)
+        return Recipe
 
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     end
@@ -562,30 +570,13 @@ function This_MOD.create_recipe(space)
 
     local function all(damage)
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-        --- Validar si se creó "all"
-        --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-
-        --- Nombre a usar
-        local Name = space.name .. "all"
-
-        --- Crear la receta para la armadura
-        if not data.raw.recipe[Name] then
-            one(#This_MOD.damages + 1)
-        end
-
-        --- Renombrar
-        local Recipe = data.raw.recipe[Name]
-
-        --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-
-
-
-
-
-        --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
         --- Validación
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
+        --- Cargar o crear de ser necesario
+        local Recipe = one()
+
+        --- Tiene el valor a agregar
         if
             GMOD.get_tables(
                 Recipe.ingredients,
