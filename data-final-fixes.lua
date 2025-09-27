@@ -127,9 +127,6 @@ function This_MOD.get_elements()
         table.insert(This_MOD.damages, damage)
     end
 
-    --- Cantidad de digitod
-    This_MOD.digits = GMOD.digit_count(#This_MOD.damages) + 1
-
     --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 
@@ -187,6 +184,8 @@ function This_MOD.get_elements()
         Space.recipe = Space.recipe and Space.recipe[1] or nil
 
         Space.subgroup = string.sub(Name, 1, -2)
+
+        Space.digits = 1 + GMOD.digit_count(#This_MOD.damages + 1)
 
         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -273,11 +272,11 @@ function This_MOD.create_item(space)
         --- Order a usar
         local Order =
             GMOD.pad_left_zeros(
-                This_MOD.digits,
+                space.digits,
                 i or #This_MOD.damages + 1
             ) .. "0"
 
-            --- Renombrar
+        --- Renombrar
         local Item = GMOD.items[Name]
 
         --- Existe
@@ -457,7 +456,7 @@ function This_MOD.create_recipe(space)
         --- Order a usar
         local Order =
             GMOD.pad_left_zeros(
-                This_MOD.digits,
+                space.digits,
                 i or #This_MOD.damages + 1
             ) .. "0"
 
